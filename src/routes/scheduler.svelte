@@ -1,11 +1,12 @@
 <script>
     import SWeek from "./s-week.svelte";
+    import SNow from "./s-now.svelte";
 </script>
 
 <div class="yysf" style="
 width:100%;
 height:100%;
-background-color:aqua;
+background-color:lightsteelblue;
 display:flex;
 flex-direction:column;
 gap:2rem;
@@ -14,21 +15,21 @@ padding:2rem;
 
     <div class="yysbc" style="
     width:100%;
-    background-color:red;
+    background-color:lightslategray;
     display: grid;
     grid-template-columns:15rem 1fr 15rem;
-    grid-template-rows: 10rem 2rem;
+    grid-template-rows: 10rem 4rem;
     grid-template-areas: 
     'now week calendar'
     'hours hours hours';
     ">
-        <div class="" style="
+        <div class="yycc" style="
         grid-area: now;
-        background-color:darkcyan;
-        "></div>
+        ">
+            <SNow/>
+        </div>
         <div class="yycc" style="
         grid-area: week;
-        background-color:azure;
         display:flex;
         ">
             <SWeek/>
@@ -39,7 +40,7 @@ padding:2rem;
         "></div>
         <div class="" style="
         grid-area: hours;
-        background-color:goldenrod;
+        background-color:olive;
         "></div>
     </div>
 
@@ -59,7 +60,7 @@ padding:2rem;
         "></div>
         <div class="" style="
         grid-area: tasks;
-        background-color:goldenrod;
+        background-color:darkmagenta;
         "></div>
     </div>
 
