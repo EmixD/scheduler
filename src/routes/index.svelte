@@ -4,7 +4,7 @@
     import Scheduler from "./scheduler.svelte";
 
     import { auth, googleProvider } from './firebase';
-    import { authState } from 'rxfire/auth';
+    import { authState } from 'rxfire/auth/dist/index.cjs.js';
 
     let user;
 
