@@ -1,17 +1,17 @@
 <script>
-    import { v4 as uuidv4 } from 'uuid';
     let taskText="";
-    
+    let startTime="00:00";
     import { createEventDispatcher } from 'svelte';
     const dispatch = createEventDispatcher();
 
     function submit(){
-        dispatch('message',{command:"addTask",new:{text:taskText, id:uuidv4()}});
+        dispatch('message',{command:"addTask",new:{text:taskText, timestring:startTime}});
+        taskText='';
     }
 </script>
 
 <div class="yysbp">
+    <input bind:value={startTime} type=time>
     <input bind:value={taskText}>
     <button on:click={submit}>Submit</button>
-
 </div>

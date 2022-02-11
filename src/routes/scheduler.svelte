@@ -14,7 +14,14 @@
 
     function handleMessage(event){
         if(event.detail.command==="addTask"){
-            db.collection(user.uid).add(event.detail.new);
+            db.collection(user.uid).add(event.detail.new).then(
+                result=>{
+                    db.collection(user.uid).doc(result.id).update({id: result.id});
+                }
+            );
+        }
+        if(event.detail.command==="removeTask"){
+            db.collection(user.uid).doc(event.detail.id).delete();
         }
     }
 </script>
@@ -69,7 +76,7 @@
         gap: 8px;
         ">
             <div class="yysg colorscheduler1">
-                <STasks tasks={tasks}/>
+                <STasks tasks={tasks} on:message={handleMessage}/>
             </div>
             <div class="yysg colorscheduler1">
             </div>
