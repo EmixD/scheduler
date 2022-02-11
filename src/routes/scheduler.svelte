@@ -1,20 +1,32 @@
 <script>
     import SWeek from "./s-week.svelte";
     import SNow from "./s-now.svelte";
+    import STasks from "./s-tasks.svelte";
+    import SNew from "./s-new.svelte";
+    import Profile from "./profile.svelte";
+    import { db } from './firebase';
+    export let user;
+
+    let tasks=[];
+    db.collection(user.uid).onSnapshot(data =>{
+        tasks=data.docs.map(x=>x.data());
+    });
+
+    function handleMessage(event){
+        if(event.detail.command==="addTask"){
+            db.collection(user.uid).add(event.detail.new);
+        }
+    }
 </script>
 
-<div class="yysf" style="
-width:100%;
-height:100%;
+<div class="yysbp" style="
 background-color:lightsteelblue;
 display:flex;
 flex-direction:column;
 gap:2rem;
 padding:2rem;
 ">
-
-    <div class="yysbc" style="
-    width:100%;
+    <div class="yys-wbp-hbc" style="
     background-color:lightslategray;
     display: grid;
     grid-template-columns:15rem 1fr 15rem;
@@ -36,8 +48,10 @@ padding:2rem;
         </div>
         <div class="" style="
         grid-area: calendar;
-        background-color:darkblue;
-        "></div>
+        background-color:cadetblue;
+        ">
+            <Profile user={user}/>
+        </div>
         <div class="" style="
         grid-area: hours;
         background-color:olive;
@@ -57,11 +71,15 @@ padding:2rem;
         <div class="" style="
         grid-area: new;
         background-color:darkblue;
-        "></div>
+        ">
+            <SNew on:message={handleMessage}/>
+        </div>
         <div class="" style="
         grid-area: tasks;
         background-color:darkmagenta;
-        "></div>
+        ">
+            <STasks tasks={tasks}/>
+        </div>
     </div>
 
 </div>
