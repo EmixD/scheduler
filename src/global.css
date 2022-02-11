@@ -1,73 +1,28 @@
-html{
-    height: 100vh;
-    margin: 0;
-    padding: 0; 
-    font-size: 15px;
-}
 body{
-    height: 100vh;
-    margin: 0;
-    padding: 0;
+    background-color: #212530;
 }
-div{
-    display: flow-root;
+.colorscheduler1{
+    background-color: #D4D3FF;
 }
-p{
-    margin: 0;
-    line-height: 1rem;
+.colorscheduler2{
+    background-color: #212530;
 }
-*{ 
-    -moz-box-sizing: border-box; 
-    -webkit-box-sizing: border-box; 
-    box-sizing: border-box; 
+.colorgreen{
+    background-color: #DBFFD8;
 }
-/* LAYOUT CLASSES */
-
-.yysf{  /* Size the element is fixed */
-    overflow: auto;
-    flex-grow: 0;
-    flex-shrink: 0;
+.colorbutton{
+    background-color: #B6B5FF;
+}
+.colortaskfuture{
+    background-color: #AEACFF;
 }
 
-.yysbc{ /* Size the element by content */
-    width: fit-content;
-    height: fit-content;
+.shadow{
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
 }
-
-.yysbp{ /* Size the element by parent */
-    width: 100%;
-    height: 100%;
+.shadowborder{
+    box-shadow:  0px 0px 0px 2px #8D8D8D,2px 4px 4px rgba(0, 0, 0, 0.1);
 }
-
-.yys-wbp-hf{
-    width: 100%;
-    overflow: auto;
-    flex-grow: 0;
-    flex-shrink: 0;
-}
-
-.yys-wbp-hbc{
-    width: 100%;
-    height: fit-content;
-}
-
-.yysg{ /* Allow grow. Only for flex. 
-    The main direction size has to be specified explicitly*/
-    overflow: auto;
-    flex-grow: 1;
-    flex-shrink: 0;
-    flex-basis: auto;
-}
-.yycc{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.yynoselect{
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+.shadowtext{
+    text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
 }

@@ -3,7 +3,12 @@
     export let tasks;
 </script>
 
-<div class="yysbp">
+<div class="yysbp" style="
+display: flex;
+flex-direction: column;
+gap:10px;
+padding: 10px;
+">
     {#each tasks as task}
         <STTask task={task}/>
     {/each}

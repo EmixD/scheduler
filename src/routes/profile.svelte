@@ -5,12 +5,16 @@
     let uid=user.uid;
 </script>
 
-<div class="yysbp">
-    <div class="yys-wbp-hbc yycc">
-        <img src={ photoURL } height="50" alt="user avatar" style="
-        border-radius: 50%;
-        ">
+<div class="yysbp yycc" style="
+display: flex;
+flex-direction: column;
+justify-content: space-evenly;
+">
+    <div class="yysbc yycc shadow">
+        <img src={ photoURL } height="60" alt="user avatar">
     </div>
     <!-- <p>Your userID is { uid }</p> -->
-    <p>Hi { displayName }!</p>
+    <div class="yysbc yycc shadowtext">
+        <p>{displayName}</p>
+    </div>
 </div>

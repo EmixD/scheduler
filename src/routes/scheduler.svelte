@@ -18,68 +18,61 @@
         }
     }
 </script>
-
-<div class="yysbp" style="
-background-color:lightsteelblue;
-display:flex;
-flex-direction:column;
-gap:2rem;
-padding:2rem;
-">
-    <div class="yys-wbp-hbc" style="
-    background-color:lightslategray;
-    display: grid;
-    grid-template-columns:15rem 1fr 15rem;
-    grid-template-rows: 10rem 4rem;
-    grid-template-areas: 
-    'now week calendar'
-    'hours hours hours';
+<div class="yysbp yycc">
+    <div class="yysf colorscheduler2" style="
+    display:flex;
+    flex-direction:column;
+    width: 800px;
+    height: 600px;
+    gap: 8px;
+    padding:0;
     ">
-        <div class="yycc" style="
-        grid-area: now;
+        <div class="yys-wbp-hbc" style="
+        display: grid;
+        grid-template-columns:220px 1fr 220px;
+        grid-template-rows: 136px;
+        grid-template-areas: 
+        'now week calendar';
+        gap: 8px;
         ">
-            <SNow/>
+            <div class="yycc colorscheduler1" style="
+            grid-area: now;
+            ">
+                <SNow/>
+            </div>
+            <div class="yycc colorscheduler1" style="
+            grid-area: week;
+            display:flex;
+            ">
+                <SWeek/>
+            </div>
+            <div class="yycc colorscheduler1" style="
+            grid-area: calendar;
+            display:flex;
+            ">
+                <Profile user={user}/>
+            </div>
         </div>
-        <div class="yycc" style="
-        grid-area: week;
-        display:flex;
-        ">
-            <SWeek/>
-        </div>
-        <div class="" style="
-        grid-area: calendar;
-        background-color:cadetblue;
-        ">
-            <Profile user={user}/>
-        </div>
-        <div class="" style="
-        grid-area: hours;
-        background-color:olive;
-        "></div>
-    </div>
 
-    <div class="yysg" style="
-    width:100%;
-    background-color:red;
-    display: grid;
-    grid-template-columns:1fr;
-    grid-template-rows: 10rem 1fr;
-    grid-template-areas: 
-    'new'
-    'tasks';
-    ">
-        <div class="" style="
-        grid-area: new;
-        background-color:darkblue;
+        <div class="yys-wbp-hbc yycc colorscheduler1" style="
+        display:grid;
+        padding:5px;    
         ">
             <SNew on:message={handleMessage}/>
         </div>
-        <div class="" style="
-        grid-area: tasks;
-        background-color:darkmagenta;
+
+        <div class="yysg" style="
+        width:100%;
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
         ">
-            <STasks tasks={tasks}/>
+            <div class="yysg colorscheduler1">
+                <STasks tasks={tasks}/>
+            </div>
+            <div class="yysg colorscheduler1">
+            </div>
         </div>
     </div>
-
 </div>

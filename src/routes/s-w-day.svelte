@@ -10,18 +10,12 @@
 
 </script>
 
-<div class={"yysf yycc"+(selected?" border":"")} style="
-width:4rem;
-height:4rem;
-background-color:darkgrey;
+<div class={"yysf yycc colorgreen"+(selected?" shadowborder":" shadow")} style="
+width: 42px;
+height:57px;
+border-radius: 16px;
 display:flex;
 "
 on:click={select}>
     <p class="yysbc yynoselect">{mday}</p>
 </div>
-
-<style>
-    .border{
-        border:solid;
-    }
-</style>

@@ -1,4 +1,5 @@
 <script>
+    import '../yy.css';
     import '../global.css';
     import Scheduler from "./scheduler.svelte";
 
