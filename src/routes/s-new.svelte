@@ -36,7 +36,7 @@
         return ("0" + num).slice(-2);
     }
     function getTimeString(){
-        return ""+startTimeh+":"+startTimem;
+        return ""+toTwoDigits(startTimeh)+":"+toTwoDigits(startTimem);
     }
 </script>
 

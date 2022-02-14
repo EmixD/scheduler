@@ -1,4 +1,11 @@
 <script>
+    // import { library } from '@fortawesome/fontawesome-svg-core';
+    import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+    import { FontAwesomeIcon} from 'fontawesome-svelte';
+
+    // library.add(faSmileWink);
+
+
     export let task;
 	import { createEventDispatcher } from 'svelte';
 
@@ -13,6 +20,7 @@ display: flex;
 flex-direction: row;
 justify-content: space-between;
 gap: 10px;
+padding-right: 15px;
 ">
     <div class="yysbc yycc time shadowtext">
         <p style="width: max-content; padding: 5px;">
@@ -24,13 +32,8 @@ gap: 10px;
             {task.text}
         </p>
     </div>
-    <div class="yysf yycc yynoselect shadow" on:click={del} style="
-    width: 20px;
-    height: 20px;
-    background-color: red;
-    border-radius: 50%;
-    ">
-        <p>X</p>
+    <div class="yysf yycc yynoselect shadowtext" on:click={del}>
+        <FontAwesomeIcon size="l" icon={faTrashCan} />
     </div>
 </div>
 
