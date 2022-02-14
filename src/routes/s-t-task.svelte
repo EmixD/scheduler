@@ -1,10 +1,6 @@
 <script>
-    // import { library } from '@fortawesome/fontawesome-svg-core';
-    import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-    import { FontAwesomeIcon} from 'fontawesome-svelte';
-
-    // library.add(faSmileWink);
-
+    import Fa from 'svelte-fa'
+    import { faTrashCan } from '@fortawesome/free-solid-svg-icons/faTrashCan'
 
     export let task;
 	import { createEventDispatcher } from 'svelte';
@@ -27,13 +23,13 @@ padding-right: 15px;
             {task.timestring?task.timestring:"00:00"}
         </p>
     </div>
-    <div class="yysg title">
+    <div class="yysg title shadowtext">
         <p class="yysbс" style="padding: 5px;">
             {task.text}
         </p>
     </div>
     <div class="yysf yycc yynoselect shadowtext" on:click={del}>
-        <FontAwesomeIcon size="l" icon={faTrashCan} />
+        <Fa size="1.5x" icon={faTrashCan}/>
     </div>
 </div>
 

@@ -12,7 +12,7 @@
     }
     function mwheelh(event){
         event.preventDefault();
-        startTimeh += Math.sign(event.deltaY);
+        startTimeh -= Math.sign(event.deltaY);
         if(startTimeh>23){
             startTimeh=23;
         }
@@ -22,14 +22,14 @@
     }
     function mwheelm(event){
         event.preventDefault();
-        startTimem += Math.sign(event.deltaY)*10;
+        startTimem -= Math.sign(event.deltaY)*10;
         if(startTimem>=60){
             startTimem-=60;
-            mwheelh({deltaY:1, preventDefault:(()=>{;})});
+            mwheelh({deltaY:-1, preventDefault:(()=>{;})});
         }
         if(startTimem<0){
             startTimem+=60;
-            mwheelh({deltaY:-1, preventDefault:(()=>{;})})
+            mwheelh({deltaY:1, preventDefault:(()=>{;})})
         }
     }
     function toTwoDigits(num){
