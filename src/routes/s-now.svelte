@@ -91,7 +91,7 @@ justify-content: space-evenly;
         <p class="yysbc shadowtext" style="font-size: 1.5rem;">{weekDay}</p>
     </div>
 
-    <div class="yys-wbp-hbc yycc" style="
+    <div class="yys-wbp-hbc yycc yynoselect" style="
     display: flex;
     width: 100%;
     ">
