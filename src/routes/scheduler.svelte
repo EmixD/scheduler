@@ -10,6 +10,7 @@
     let tasks=[];
     db.collection(user.uid).onSnapshot(data =>{
         tasks=data.docs.map(x=>x.data());
+        tasks.sort((a, b) => a.timestring.localeCompare(b.timestring));
     });
 
     function handleMessage(event){
@@ -23,12 +24,16 @@
         if(event.detail.command==="removeTask"){
             db.collection(user.uid).doc(event.detail.id).delete();
         }
+        if(event.detail.command==="tickTask"){
+            db.collection(user.uid).doc(event.detail.id).update({tick: event.detail.tick});
+        }
     }
 </script>
 <div class="yysbp yycc">
     <div class="yysf colorscheduler2" style="
-    display:flex;
-    flex-direction:column;
+    display:grid;
+    grid-template-columns:1fr;
+    grid-template-rows: auto 1fr;
     width: 800px;
     height: 600px;
     gap: 8px;

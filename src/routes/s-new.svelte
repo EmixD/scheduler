@@ -7,7 +7,7 @@
     const dispatch = createEventDispatcher();
 
     function submit(){
-        dispatch('message',{command:"addTask",new:{text:taskText, timestring:getTimeString()}});
+        dispatch('message',{command:"addTask",new:{text:taskText, tick:false, timestring:getTimeString()}});
         taskText='';
     }
     function mwheelh(event){
