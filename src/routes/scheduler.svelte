@@ -33,7 +33,7 @@
     <div class="yysf colorscheduler2" style="
     display:grid;
     grid-template-columns:1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto 1fr;
     width: 800px;
     height: 600px;
     gap: 8px;
