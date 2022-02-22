@@ -1,13 +1,13 @@
 <script>
     let taskText="";
-    let startTime="00:00";
     let startTimeh=11;
     let startTimem=0;
     import { createEventDispatcher } from 'svelte';
     const dispatch = createEventDispatcher();
+    export let dateDay; // ddmmyyyy - number: current selected day
 
     function submit(){
-        dispatch('message',{command:"addTask",new:{text:taskText, tick:false, timestring:getTimeString()}});
+        dispatch('message',{command:"addTask",new:{text:taskText, tick:false, timestring:getTimeString(), date:dateDay}});
         taskText='';
     }
     function mwheelh(event){

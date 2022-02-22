@@ -17,13 +17,15 @@
     let showui=false;
 </script>
 
-<div class="yys-wbp-hbc yycc shadow  {task.tick?'colortasktick':'colortaskfuture'} task" style="
+<div class="yys-wbp-hbc yycc shadow  {task.tick?'colortasktick':'colortaskfuture'}" style="
 display: grid;
 grid-template-columns: auto 1fr auto auto;
 grid-template-rows: auto;
 gap: 10px;
-padding-right: 15px;
-overflow-y: visible;
+padding: 7px;
+padding-right:15px;
+padding-left:10px;
+border-radius: 20px;
 "
 on:mouseenter={()=>{showui=true}}
 on:mouseleave={()=>{showui=false}}
@@ -62,10 +64,5 @@ on:mouseleave={()=>{showui=false}}
         font-style: normal;
         font-weight: normal;
         font-size: 18px;
-    }
-    .task{
-        height: 37px;
-        border-radius: 20px;
-        padding: 10px;
     }
 </style>

@@ -28,6 +28,7 @@
             db.collection(user.uid).doc(event.detail.id).update({tick: event.detail.tick});
         }
     }
+    let selectedDateDay = 11092022;
 </script>
 <div class="yysbp yycc">
     <div class="yysf colorscheduler2" style="
