@@ -23,6 +23,7 @@ grid-template-columns: auto 1fr auto auto;
 grid-template-rows: auto;
 gap: 10px;
 padding-right: 15px;
+overflow-y: visible;
 "
 on:mouseenter={()=>{showui=true}}
 on:mouseleave={()=>{showui=false}}
@@ -33,8 +34,8 @@ on:mouseleave={()=>{showui=false}}
         </p>
     </div>
     <div class="yysbc title shadowtext yynoselect" style="overflow-x: hidden;">
-        <p class="yysbс" style="overflow-y: visible;">
-            <nobr style="overflow-y: visible;">{task.text}</nobr>
+        <p class="yysbc">
+            <nobr class="yysbc">{task.text}</nobr>
         </p>
     </div>
     {#if showui}

@@ -14,7 +14,7 @@ div{
 }
 p{
     margin: 0;
-    line-height: 1rem;
+    /* line-height: 1rem; */
 }
 *{ 
     -moz-box-sizing: border-box; 
