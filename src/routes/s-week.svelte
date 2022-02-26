@@ -1,11 +1,14 @@
 <script>
-import SWDay from "./s-w-day.svelte";
-let selectedDay=3;
-function handleMessage(event){
-    if(event.detail.command==="selectDay"){
-        selectedDay=event.detail.new;
+    import SWDay from "./s-w-day.svelte";
+    export let selectedWeekFirstDateDay;
+    export let selectedDateDay;
+
+    function handleMessage(event){
+        if(event.detail.command==="selectDay"){
+            //TODO: dispatch
+            // selectedDay=event.detail.new;
+        }
     }
-}
 </script>
 
 
@@ -19,9 +22,11 @@ flex-direction: column;
     justify-content: space-between;
     padding: 8px;
     ">
-    {#each Array(7) as _, i}
-        <SWDay mday={i+1} selected={i+1===selectedDay} on:message={handleMessage}/>
-    {/each}
+        {#each Array(7) as _, i}
+            <SWDay ddate={selectedWeekFirstDateDay+i} 
+            selected={i===selectedDateDay-selectedWeekFirstDateDay} 
+            on:message={handleMessage}/>
+        {/each}
     </div>
     <div class="yys-wbp-hbc yycc" style="
     display: flex;

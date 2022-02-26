@@ -4,7 +4,7 @@
     let startTimem=0;
     import { createEventDispatcher } from 'svelte';
     const dispatch = createEventDispatcher();
-    export let dateDay; // ddmmyyyy - number: current selected day
+    export let dateDay; // yyyymmdd - number: current selected day
 
     function submit(){
         dispatch('message',{command:"addTask",new:{text:taskText, tick:false, timestring:getTimeString(), date:dateDay}});

@@ -28,7 +28,8 @@
             db.collection(user.uid).doc(event.detail.id).update({tick: event.detail.tick});
         }
     }
-    let selectedDateDay = 11092022;
+    let selectedDateDay = 20220911;
+    let selectedWeekFirstDateDay = 20220911;
 </script>
 <div class="yysbp yycc">
     <div class="yysf colorscheduler2" style="
@@ -57,7 +58,10 @@
             grid-area: week;
             display:flex;
             ">
-                <SWeek/>
+                <SWeek 
+                selectedWeekFirstDateDay={selectedWeekFirstDateDay}
+                selectedDateDay={selectedDateDay}
+                />
             </div>
             <div class="yycc colorscheduler1" style="
             grid-area: calendar;
@@ -71,7 +75,9 @@
         display:grid;
         padding:5px;    
         ">
-            <SNew on:message={handleMessage}/>
+            <SNew 
+            dateDay={selectedDateDay}
+            on:message={handleMessage}/>
         </div>
 
         <div class="yysg" style="
