@@ -7,7 +7,7 @@
 
 	const dispatch = createEventDispatcher();
     function select(){
-        dispatch('message',{command:"selectDay",new:ddate});
+        dispatch('message',{command:"selectDay",ddate:ddate});
     }
 
 </script>
@@ -22,7 +22,22 @@ overflow: hidden;
 padding: 0;
 "
 on:click={select}>
-    <p class="yysbc yynoselect" style="margin: 0;">{ddGetWeekDayStringShort(ddate)}</p>    
-    <p class="yysbc yynoselect" style="margin: 0;">{ddGetDayString(ddate)}</p>
-    <p class="yysbc yynoselect" style="margin: 0;">{ddGetMonthNameStringShort(ddate)}</p>
+    <p class="yysbc yynoselect rob12" style="margin: 0;">{ddGetWeekDayStringShort(ddate)}</p>    
+    <p class="yysbc yynoselect rob14" style="margin: 0;">{ddGetDayString(ddate)}</p>
+    <p class="yysbc yynoselect rob12" style="margin: 0;">{ddGetMonthNameStringShort(ddate)}</p>
 </div>
+
+<style>
+    .rob12{
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+    }
+    .rob14{
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+    }
+</style>

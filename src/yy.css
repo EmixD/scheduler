@@ -53,10 +53,15 @@ p{
 
 .yysg{ /* Allow grow. Only for flex. 
     The main direction size has to be specified explicitly*/
+    /* DEPRECATED! 
+    Instead use display grid + fr on parent and yysbp/yys-wbp-hbc
+    */
     overflow: auto;
     flex-grow: 1;
     flex-shrink: 0;
     flex-basis: auto;
+    width: fit-content;
+    height: fit-content;
 }
 .yycc{
     display: flex;

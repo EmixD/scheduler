@@ -28,3 +28,17 @@ export function ttGetMinutesString(ttime){
 export function ttGetHoursString(ttime){
     return toTwoDigits(ttGetHours(ttime));
 }
+
+export function ttGetDurationString(ttime){
+    let h=ttGetHours(ttime);
+    let m=ttGetMinutes(ttime);
+    if(h===0){
+        return m+'m';
+    }
+    
+    if(m===0){
+        return h+'h';
+    }
+
+    return h+'h '+m+'m';
+}
