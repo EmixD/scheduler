@@ -2,7 +2,7 @@
     export let ddate;
     export let selected;
 	import { createEventDispatcher } from 'svelte';
-    import { ddGetMonthNameStringShort, ddGetDayString , ddGetWeekDayStringShort } from '../ddate'
+    import { ddGetMonthNameStringShort, ddGetDayString , ddGetWeekDayStringShort } from '../../../ddtt/ddate'
     
 
 	const dispatch = createEventDispatcher();

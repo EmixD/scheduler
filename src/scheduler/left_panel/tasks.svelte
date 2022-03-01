@@ -1,9 +1,9 @@
 <script>
-	import STTask from './s-t-task.svelte';
+	import STTask from './task.svelte';
 	export let tasks;
 	export let selectedDateDay;
 	import { createEventDispatcher } from 'svelte';
-	import { ddGetFullRelativeDate, ddToday } from '../ddate';
+	import { ddGetFullRelativeDate, ddToday } from '../../ddtt/ddate';
 	const dispatch = createEventDispatcher();
 	function forward(event) {
 		dispatch('message', event.detail);

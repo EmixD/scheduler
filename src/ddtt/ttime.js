@@ -1,4 +1,4 @@
-// ttime is a hhmmss numeric format.
+// ttime is a hhmmss numeric format. Prefix "t"
 import {toTwoDigits} from './ddtt';
 
 export function ttFromDateObj(dateObj){

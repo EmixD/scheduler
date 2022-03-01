@@ -1,3 +1,6 @@
+/* global styles for this project. TODO: prefix "gg" for global,
+ "ll" for local (declared within the component) */
+
 body{
     background-color: #212530;
 }

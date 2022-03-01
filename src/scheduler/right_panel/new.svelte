@@ -1,6 +1,6 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	import { toTwoDigits } from '../ddtt';
+	import { toTwoDigits } from '../../ddtt/ddtt';
 	export let ddate; // yyyymmdd - number: current selected day
 
 	let taskText = '';

@@ -1,7 +1,7 @@
 <script>
-	import SWDay from './s-w-day.svelte';
+	import SWDay from './day.svelte';
 	import { createEventDispatcher } from 'svelte';
-	import { ddValidateMath } from '../ddate';
+	import { ddValidateMath } from '../../../ddtt/ddate';
 	import Fa from 'svelte-fa';
 	import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 	import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight';

@@ -1,11 +1,11 @@
 <script>
-	import SWeek from './s-week.svelte';
-	import SNow from './s-now.svelte';
-	import STasks from './s-tasks.svelte';
-	import SNew from './s-new.svelte';
-	import Profile from './profile.svelte';
+	import SWeek from './top_panel/mid/week.svelte';
+	import SNow from './top_panel/left/now.svelte';
+	import STasks from './left_panel/tasks.svelte';
+	import SNew from './right_panel/new.svelte';
+	import SProfile from './top_panel/right/profile.svelte';
 	import { db } from './firebase';
-	import { ddGetWeekStart, ddToday } from '../ddate';
+	import { ddGetWeekStart, ddToday } from '../ddtt/ddate';
 	export let user;
 
 	let tasks = [];
@@ -93,7 +93,7 @@
             display:flex;
             "
 			>
-				<Profile {user} />
+				<SProfile {user} />
 			</div>
 		</div>
 

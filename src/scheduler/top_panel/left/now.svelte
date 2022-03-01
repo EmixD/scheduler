@@ -1,7 +1,7 @@
 <script>
     import { onMount } from 'svelte';
-    import {ddFromDateObj,ddGetMonthNameString,ddGetDayString,ddGetWeekDayString} from '../ddate';
-    import {ttFromDateObj,ttGetHoursString,ttGetMinutesString,ttGetSeconds} from '../ttime';
+    import {ddFromDateObj,ddGetMonthNameString,ddGetDayString,ddGetWeekDayString} from '../../../ddtt/ddate';
+    import {ttFromDateObj,ttGetHoursString,ttGetMinutesString,ttGetSeconds} from '../../../ddtt/ttime';
     import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher();

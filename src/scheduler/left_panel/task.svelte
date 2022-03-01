@@ -6,7 +6,7 @@
 	import { fade } from 'svelte/transition';
 	export let task;
 	import { createEventDispatcher } from 'svelte';
-	import { ttGetHoursString, ttGetMinutesString, ttGetDurationString } from '../ttime';
+	import { ttGetHoursString, ttGetMinutesString, ttGetDurationString } from '../../ddtt/ttime';
 
 	const dispatch = createEventDispatcher();
 	function del() {

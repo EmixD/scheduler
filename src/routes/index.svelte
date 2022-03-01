@@ -1,9 +1,9 @@
 <script>
     import '../yy.css';
     import '../global.css';
-    import Scheduler from "./scheduler.svelte";
+    import Scheduler from "../scheduler/scheduler.svelte";
 
-    import { auth, googleProvider } from './firebase';
+    import { auth, googleProvider } from '../scheduler/firebase';
     import { authState } from 'rxfire/auth/dist/index.cjs.js';
 
     let user;
