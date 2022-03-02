@@ -42,3 +42,13 @@ export function ttGetDurationString(ttime){
 
     return h+'h '+m+'m';
 }
+
+export function ttGetDurationStringLonger(ttime){
+    let h=ttGetHours(ttime);
+    let m=ttGetMinutes(ttime);
+    if(h===0){
+        return m+'m';
+    }
+
+    return h+'h '+toTwoDigits(m)+'m';
+}

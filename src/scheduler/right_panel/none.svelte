@@ -1,7 +1,7 @@
 
 <div class="yysbp ll1">
 	<div class="yys-wbp-hbc yycc yynoselect ll2">
-		<p>Placeholder panel</p>
+		<p>&nbsp;</p>
 	</div>
 	<div/>
 </div>

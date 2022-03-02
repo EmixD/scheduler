@@ -67,15 +67,17 @@
 		display: grid;
 		grid-template-columns: auto 1fr;
 		grid-template-rows: auto;
-		font-family: Roboto;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 18px;
+
 	}
 	.ll3 {
 		display: flex;
 		flex-direction: row;
 		gap: 10px;
+		font-family: Roboto;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: #007;
 	}
 	.ll4 {
 		display: flex;
@@ -83,6 +85,11 @@
 		justify-content: right;
 		gap: 10px;
 		padding-right: 5px;
+		font-family: Roboto;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		color: #007;
 	}
 	.ll5 {
 		font-family: Roboto;
