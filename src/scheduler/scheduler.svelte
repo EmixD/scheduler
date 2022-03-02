@@ -3,6 +3,7 @@
 	import SNow from './top_panel/left/now.svelte';
 	import STasks from './left_panel/tasks.svelte';
 	import SNew from './right_panel/new.svelte';
+	import SNone from './right_panel/none.svelte';
 	import SProfile from './top_panel/right/profile.svelte';
 	import { db } from './firebase';
 	import { ddGetWeekStart, ddToday } from '../ddtt/ddate';
@@ -11,11 +12,12 @@
 	let tasks = [];
 	db.collection(user.uid).onSnapshot((data) => {
 		tasks = data.docs.map((x) => x.data());
-		tasks.sort((a, b) => a.ttime > b.ttime);
+		// tasks.sort((a, b) => a.ttime > b.ttime); !Remember that sort sorts in-place!
 	});
 
 	let selectedDateDay = ddToday();
 	let selectedWeekFirstDateDay = ddGetWeekStart(selectedDateDay);
+	let rightPanelState = 'none';
 
 	function handleMessage(event) {
 		// console.log(event.detail);
@@ -41,6 +43,10 @@
 		if (event.detail.command === 'setCurrentDay') {
 			selectedDateDay = ddToday();
 			selectedWeekFirstDateDay = ddGetWeekStart(selectedDateDay);
+			rightPanelState = 'none';
+		}
+		if (event.detail.command === 'changeRightPanelState') {
+			rightPanelState = event.detail.state;
 		}
 	}
 </script>
@@ -63,7 +69,12 @@
 				<STasks {tasks} {selectedDateDay} on:message={handleMessage} />
 			</div>
 			<div class="yysbp gg-c-1">
-				<SNew ddate={selectedDateDay} on:message={handleMessage} />
+				{#if rightPanelState === 'none'}
+					<SNone />
+				{/if}
+				{#if rightPanelState === 'newTask'}
+					<SNew ddate={selectedDateDay} on:message={handleMessage} />
+				{/if}
 			</div>
 		</div>
 	</div>

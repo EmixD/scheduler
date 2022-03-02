@@ -27,7 +27,7 @@
 	.ll1 {
 		width: 42px;
 		height: 57px;
-		border-radius: 16px;
+		/* border-radius: 16px; */
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;

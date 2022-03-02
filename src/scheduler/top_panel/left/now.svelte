@@ -31,15 +31,12 @@
 	});
 </script>
 
-<div class="yysbp yycc ll1">
+<div class="yysbp yycc yynoselect ll1" on:click={() => dispatch('message', { command: 'setCurrentDay' })}>
 	<div class="yys-wbp-hbc yycc">
 		<p class="yysbc ggshadowtext ll2">{ddGetWeekDayString(ddate)}</p>
 	</div>
 
-	<div
-		class="yys-wbp-hbc yycc yynoselect"
-		on:click={() => dispatch('message', { command: 'setCurrentDay' })}
-	>
+	<div class="yys-wbp-hbc yycc ">
 		<p class="yysbc ggshadowtext ll3">{ttGetHoursString(ttime)}</p>
 		<p class="yysbc ggshadowtext ll3" style="width: 0.5ch;">
 			{ttGetSeconds(ttime) % 2 === 0 ? `:` : ` `}

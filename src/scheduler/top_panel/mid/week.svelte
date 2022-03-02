@@ -6,8 +6,12 @@
 	import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 	import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight';
 	import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/faCalendarDays';
+	// import { flip } from 'svelte/animate';
+	import { fade , fly} from 'svelte/transition';
 	export let selectedWeekFirstDateDay;
 	export let selectedDateDay;
+
+	$: days = [...Array(7).keys()].map((i) => ddValidateMath(selectedWeekFirstDateDay + i));
 
 	const dispatch = createEventDispatcher();
 	function handleMessage(event) {
@@ -19,12 +23,12 @@
 
 <div class="yysbp yycc ll1">
 	<div class="yys-wbp-hbc yycc ll2">
-		{#each Array(7) as _, i}
-			<SWDay
-				ddate={ddValidateMath(selectedWeekFirstDateDay + i)}
-				selected={selectedDateDay === ddValidateMath(i + selectedWeekFirstDateDay)}
-				on:message={handleMessage}
-			/>
+		{#each days as day (day)}
+			<div
+				class="yysbc"
+			>
+				<SWDay ddate={day} selected={selectedDateDay === day} on:message={handleMessage} />
+			</div>
 		{/each}
 	</div>
 	<div class="yys-wbp-hbc yycc ll2">

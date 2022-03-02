@@ -29,9 +29,11 @@
 >
 	<div class="yys-wbp-hbc ll2">
 		<div class="yysbp ggshadowtext yynoselect ll3">
-			<nobr>
-				{ttGetHoursString(task.ttime) + ':' + ttGetMinutesString(task.ttime)}
-			</nobr>
+			{#if task.ttime !== 0}
+				<nobr>
+					{ttGetHoursString(task.ttime) + ':' + ttGetMinutesString(task.ttime)}
+				</nobr>
+			{/if}
 			<nobr>
 				({ttGetDurationString(task.tduration)})
 			</nobr>
@@ -59,7 +61,7 @@
 		display: flex;
 		flex-direction: column;
 		padding: 10px;
-		border-radius: 20px;
+		/* border-radius: 20px; */
 	}
 	.ll2 {
 		display: grid;

@@ -2,6 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { toTwoDigits } from '../../ddtt/ddtt';
 	import { v4 as uuidv4 } from 'uuid';
+	import { ttFromDateObj } from '../../ddtt/ttime';
 	export let ddate; // yyyymmdd - number: current selected day
 
 	let taskText = '';
@@ -9,7 +10,8 @@
 	let startTimeh = 18;
 	let startTimem = 0;
 	let tDurationh = 0;
-	let tDurationm = 30;
+	let tDurationm = 10;
+	let showStartClock = false;
 
 	function submit() {
 		dispatch('message', {
@@ -18,9 +20,10 @@
 				text: taskText,
 				tick: false,
 				ddate: ddate,
-				ttime: startTimeh * 10000 + startTimem * 100,
+				ttime: showStartClock?(startTimeh * 10000 + startTimem * 100):0,
 				tduration: tDurationh * 10000 + tDurationm * 100,
-				originalId: uuidv4()
+				originalId: uuidv4(),
+				createdAt: ttFromDateObj(new Date())
 			}
 		});
 		taskText = '';
@@ -28,7 +31,7 @@
 
 	function wheelStartTime(event) {
 		event.preventDefault();
-		startTimem -= Math.sign(event.deltaY) * 10;
+		startTimem += Math.sign(event.deltaY) * 10;
 		if (startTimem >= 60) {
 			startTimem -= 60;
 			startTimeh += 1;
@@ -49,7 +52,7 @@
 
 	function wheelDuration(event) {
 		event.preventDefault();
-		tDurationm -= Math.sign(event.deltaY) * 10;
+		tDurationm += Math.sign(event.deltaY) * 10;
 		if (tDurationm >= 60) {
 			tDurationm -= 60;
 			tDurationh += 1;
@@ -76,9 +79,15 @@
 	<div class="yys-wbp-hbc yycc ll3">
 		<div class="yys-wbp-hbc yycc shadowtext ll4" style="">Starting time:</div>
 		<div class="yys-wbp-hbc yycc shadowtext ll5">
-			<div class="yynoselect" on:wheel={wheelStartTime}>{toTwoDigits(startTimeh)}</div>
-			<div class="yynoselect" on:wheel={wheelStartTime}>:</div>
-			<div class="yynoselect" on:wheel={wheelStartTime}>{toTwoDigits(startTimem)}</div>
+			{#if showStartClock}
+				<div class="yynoselect" on:wheel={wheelStartTime}>{toTwoDigits(startTimeh)}</div>
+				<div class="yynoselect" on:wheel={wheelStartTime}>:</div>
+				<div class="yynoselect" on:wheel={wheelStartTime}>{toTwoDigits(startTimem)}</div>
+			{:else}
+				<div class="yynoselect yysbc" style="font-size: 1.3rem;" on:click={()=>{showStartClock=true}}>
+					ADD START TIME
+				</div>
+			{/if}
 		</div>
 
 		<div class="yys-wbp-hbc yycc shadowtext ll4">Duration:</div>
