@@ -17,22 +17,8 @@
 	}
 </script>
 
-<div
-	class="yysbp yycc"
-	style="
-display: flex;
-flex-direction: column;
-"
->
-	<div
-		class="yys-wbp-hbc yycc"
-		style="
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 8px;
-    "
-	>
+<div class="yysbp yycc ll1">
+	<div class="yys-wbp-hbc yycc ll2">
 		{#each Array(7) as _, i}
 			<SWDay
 				ddate={ddValidateMath(selectedWeekFirstDateDay + i)}
@@ -41,17 +27,9 @@ flex-direction: column;
 			/>
 		{/each}
 	</div>
-	<div
-		class="yys-wbp-hbc yycc"
-		style="
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 8px;
-    "
-	>
+	<div class="yys-wbp-hbc yycc ll3">
 		<div
-			class="yysf yynoselect yycc colorbutton btnshape shadow"
+			class="yysbc yynoselect yycc colorbutton llbtn shadow"
 			on:click={() =>
 				dispatch('message', {
 					command: 'selectWeekStartDay',
@@ -60,11 +38,11 @@ flex-direction: column;
 		>
 			<Fa color="#228" size="1.5x" icon={faArrowLeft} />
 		</div>
-		<div class="yysf yynoselect yycc colorbutton btnshape shadow">
+		<div class="yysbc yynoselect yycc colorbutton llbtn shadow">
 			<Fa color="#228" size="1.5x" icon={faCalendarDays} />
 		</div>
 		<div
-			class="yysf yynoselect yycc colorbutton btnshape shadow"
+			class="yysbc yynoselect yycc colorbutton llbtn shadow"
 			on:click={() =>
 				dispatch('message', {
 					command: 'selectWeekStartDay',
@@ -77,7 +55,23 @@ flex-direction: column;
 </div>
 
 <style>
-	.btnshape {
+	.ll1 {
+		display: flex;
+		flex-direction: column;
+	}
+	.ll2 {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding: 8px;
+	}
+	.ll3 {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding: 8px;
+	}
+	.llbtn {
 		height: 34px;
 		width: 87px;
 		border-radius: 47px;

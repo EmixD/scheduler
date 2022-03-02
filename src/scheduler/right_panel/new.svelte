@@ -67,62 +67,28 @@
 	}
 </script>
 
-<div
-	class="yysbp"
-	style="
-display: flex;
-flex-direction: column;
-gap:10px;
-"
->
-	<div
-		class="yys-wbp-hbc yycc yynoselect title"
-		style="
-    background-color: #0D1C9D;
-    color: white;
-    "
-	>
+<div class="yysbp ll1">
+	<div class="yys-wbp-hbc yycc yynoselect ll2">
 		<p>Add New Task</p>
 	</div>
-	<div
-		class="yys-wbp-hbc yycc"
-		style="
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap:10px;
-    "
-	>
-		<div class="yys-wbp-hbc yycc shadowtext" style="font-size: 1.5rem;">Starting time:</div>
-		<div
-			class="yys-wbp-hbc yycc shadowtext"
-			style="
-        display: flex;
-        flex-direction: row;
-        font-size: 2rem;
-        "
-		>
+	<div class="yys-wbp-hbc yycc ll3">
+		<div class="yys-wbp-hbc yycc shadowtext ll4" style="">Starting time:</div>
+		<div class="yys-wbp-hbc yycc shadowtext ll5">
 			<div class="yynoselect" on:wheel={wheelStartTime}>{toTwoDigits(startTimeh)}</div>
 			<div class="yynoselect" on:wheel={wheelStartTime}>:</div>
 			<div class="yynoselect" on:wheel={wheelStartTime}>{toTwoDigits(startTimem)}</div>
 		</div>
 
-		<div class="yys-wbp-hbc yycc shadowtext" style="font-size: 1.5rem;">Duration:</div>
-		<div
-			class="yys-wbp-hbc yycc shadowtext"
-			style="
-        display: flex;
-        flex-direction: row;
-        font-size: 2rem;
-        "
-		>
+		<div class="yys-wbp-hbc yycc shadowtext ll4">Duration:</div>
+		<div class="yys-wbp-hbc yycc shadowtext ll5">
 			<div class="yynoselect" on:wheel={wheelDuration}>{toTwoDigits(tDurationh)}</div>
 			<div class="yynoselect" on:wheel={wheelDuration}>:</div>
 			<div class="yynoselect" on:wheel={wheelDuration}>{toTwoDigits(tDurationm)}</div>
 		</div>
 	</div>
-	<div class="yys-wbp-hbc yycc shadowtext" style="display: flex; flex-direction: column; gap:10px;">
-		<input class="shadow" style="width: 250px; height: 30px; font-size: 1.2rem;"
+	<div class="yys-wbp-hbc yycc shadowtext ll6">
+		<input
+			class="shadow ll7"
 			bind:value={taskText}
 			on:keypress={(e) => {
 				if (e.key === 'Enter') {
@@ -130,15 +96,51 @@ gap:10px;
 				}
 			}}
 		/>
-		<button class="shadow" style="width: 100px; height: 30px; font-size: 1.2rem;" on:click={submit}>Submit</button>
+		<button class="shadow ll8" on:click={submit}>Submit</button>
 	</div>
 </div>
 
 <style>
-	.title {
+	.ll1 {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+	.ll2 {
+		background-color: #0d1c9d;
+		color: white;
 		font-family: Roboto;
 		font-style: normal;
 		font-weight: normal;
 		font-size: 24px;
+	}
+	.ll3 {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: auto auto;
+		gap: 10px;
+	}
+	.ll4 {
+		font-size: 1.5rem;
+	}
+	.ll5 {
+		display: flex;
+		flex-direction: row;
+		font-size: 2rem;
+	}
+	.ll6 {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+	.ll7 {
+		width: 250px;
+		height: 30px;
+		font-size: 1.2rem;
+	}
+	.ll8 {
+		width: 100px;
+		height: 30px;
+		font-size: 1.2rem;
 	}
 </style>

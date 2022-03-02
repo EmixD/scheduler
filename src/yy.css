@@ -34,6 +34,7 @@ p{
 .yysbp{ /* Size the element by parent */
     width: 100%;
     height: 100%;
+    overflow: auto;
 }
 .yys-wbp-hbc{ /* Width by parent, height by content */
     width: 100%;

@@ -10,33 +10,11 @@
 	}
 </script>
 
-<div
-	class="yysbp"
-	style="
-display: grid;
-grid-template-rows: auto 1fr;
-grid-template-columns: auto;
-"
->
-	<div
-		class="yys-wbp-hbc yycc yynoselect title"
-		style="
-    background-color: #0D1C9D;
-    color: white;
-    "
-	>
+<div class="yysbp ll1">
+	<div class="yys-wbp-hbc yycc yynoselect ll2">
 		<p>{ddGetFullRelativeDate(ddToday(), selectedDateDay)}</p>
 	</div>
-	<div
-		class="yysbp"
-		style="
-    display: flex;
-    flex-direction: column;
-    gap:10px;
-    overflow-x: hidden;
-    padding: 10px;
-    "
-	>
+	<div class="yysbp ll3">
 		{#each tasks as task}
 			{#if task.ddate === selectedDateDay}
 				<STTask {task} on:message={forward} />
@@ -46,10 +24,24 @@ grid-template-columns: auto;
 </div>
 
 <style>
-	.title {
+	.ll1 {
+		display: grid;
+		grid-template-rows: auto 1fr;
+		grid-template-columns: auto;
+	}
+	.ll2 {
+		background-color: #0d1c9d;
+		color: white;
 		font-family: Roboto;
 		font-style: normal;
 		font-weight: normal;
 		font-size: 24px;
+	}
+	.ll3 {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		overflow-x: hidden;
+		padding: 10px;
 	}
 </style>

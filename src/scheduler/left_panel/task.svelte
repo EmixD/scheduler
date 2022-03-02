@@ -19,14 +19,7 @@
 </script>
 
 <div
-	class="yys-wbp-hbc shadow  {task.tick ? 'colortasktick' : 'colortaskfuture'}"
-	style="
-display: flex;
-flex-direction: column;
-gap: 0px;
-padding: 10px;
-border-radius: 20px;
-"
+	class="yys-wbp-hbc shadow ll1 {task.tick ? 'colortasktick' : 'colortaskfuture'}"
 	on:mouseenter={() => {
 		showui = true;
 	}}
@@ -34,38 +27,16 @@ border-radius: 20px;
 		showui = false;
 	}}
 >
-	<div
-		class="yys-wbp-hbc"
-		style="
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto;
-    "
-	>
-		<div
-			class="yysbp time shadowtext yynoselect"
-			style="
-        display: flex;
-        flex-direction: row;
-        gap:10px;
-        "
-		>
-			<p style="width: max-content;">
+	<div class="yys-wbp-hbc ll2">
+		<div class="yysbp shadowtext yynoselect ll3">
+			<nobr>
 				{ttGetHoursString(task.ttime) + ':' + ttGetMinutesString(task.ttime)}
-			</p>
-			<p style="width: max-content;">({ttGetDurationString(task.tduration)})</p>
+			</nobr>
+			<nobr>
+				({ttGetDurationString(task.tduration)})
+			</nobr>
 		</div>
-		<div
-			class="yysbp time shadowtext yynoselect"
-			style="
-        display: flex;
-        flex-direction: row;
-        justify-content: right;
-        gap:10px;
-        padding-right: 5px;
-        overflow: hidden;
-        "
-		>
+		<div class="yysbp shadowtext yynoselect ll4">
 			{#if showui}
 				<div class="yysf yycc yynoselect shadowtext" on:click={tick} out:fade>
 					<Fa size="1x" icon={task.tick ? faXmark : faCheck} />
@@ -76,24 +47,48 @@ border-radius: 20px;
 			{/if}
 		</div>
 	</div>
-	<div class="yysbp title shadowtext yynoselect" style="overflow-x: hidden;">
-		<p class="yysbp" style="display: flow-root;">
+	<div class="yysbp ll5 shadowtext yynoselect">
+		<p class="yysbp">
 			<nobr class="yysbp">{task.text}</nobr>
 		</p>
 	</div>
 </div>
 
 <style>
-	.time {
+	.ll1 {
+		display: flex;
+		flex-direction: column;
+		gap: 0px;
+		padding: 10px;
+		border-radius: 20px;
+	}
+	.ll2 {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		grid-template-rows: auto;
 		font-family: Roboto;
 		font-style: normal;
 		font-weight: normal;
 		font-size: 18px;
 	}
-	.title {
+	.ll3 {
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
+	}
+	.ll4 {
+		display: flex;
+		flex-direction: row;
+		justify-content: right;
+		gap: 10px;
+		padding-right: 5px;
+		overflow: hidden;
+	}
+	.ll5 {
 		font-family: Roboto;
 		font-style: normal;
 		font-weight: normal;
 		font-size: 18px;
+		overflow-x: hidden;
 	}
 </style>
