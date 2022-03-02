@@ -27,7 +27,7 @@
 			/>
 		{/each}
 	</div>
-	<div class="yys-wbp-hbc yycc ll3">
+	<div class="yys-wbp-hbc yycc ll2">
 		<div
 			class="yysbc yynoselect yycc gg-c-button llbtn ggshadow"
 			on:click={() =>
@@ -60,12 +60,6 @@
 		flex-direction: column;
 	}
 	.ll2 {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		padding: 8px;
-	}
-	.ll3 {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;

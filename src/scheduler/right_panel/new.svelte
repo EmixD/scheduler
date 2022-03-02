@@ -1,6 +1,7 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
 	import { toTwoDigits } from '../../ddtt/ddtt';
+	import { v4 as uuidv4 } from 'uuid';
 	export let ddate; // yyyymmdd - number: current selected day
 
 	let taskText = '';
@@ -18,7 +19,8 @@
 				tick: false,
 				ddate: ddate,
 				ttime: startTimeh * 10000 + startTimem * 100,
-				tduration: tDurationh * 10000 + tDurationm * 100
+				tduration: tDurationh * 10000 + tDurationm * 100,
+				originalId: uuidv4()
 			}
 		});
 		taskText = '';
@@ -90,6 +92,7 @@
 		<input
 			class="shadow ll7"
 			bind:value={taskText}
+			maxlength="50"
 			on:keypress={(e) => {
 				if (e.key === 'Enter') {
 					submit();
@@ -132,9 +135,12 @@
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 	.ll7 {
-		width: 250px;
+		/* width: 250px; */
+		width: 100%;
 		height: 30px;
 		font-size: 1.2rem;
 	}

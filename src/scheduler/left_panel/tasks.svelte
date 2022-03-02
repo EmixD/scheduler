@@ -1,9 +1,11 @@
 <script>
 	import STTask from './task.svelte';
-	export let tasks;
-	export let selectedDateDay;
+	import { flip } from 'svelte/animate';
+	import { fade, fly } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
 	import { ddGetFullRelativeDate, ddToday } from '../../ddtt/ddate';
+	export let tasks;
+	export let selectedDateDay;
 	const dispatch = createEventDispatcher();
 	function forward(event) {
 		dispatch('message', event.detail);
@@ -15,10 +17,17 @@
 		<p>{ddGetFullRelativeDate(ddToday(), selectedDateDay)}</p>
 	</div>
 	<div class="yysbp ll3">
-		{#each tasks as task}
-			{#if task.ddate === selectedDateDay}
+		{#each tasks.filter((task) => task.ddate === selectedDateDay) as task (task.originalId)}
+			<div
+				animate:flip={{ duration: 200 }}
+				in:fade={{ duration: 200 }}
+				out:fade={{ duration: 200 }}
+				class="yys-wbp-hbc"
+			>
+				<!-- {#if task.ddate === selectedDateDay} -->
 				<STTask {task} on:message={forward} />
-			{/if}
+				<!-- {/if} -->
+			</div>
 		{/each}
 	</div>
 </div>
@@ -41,7 +50,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
-		overflow-x: hidden;
 		padding: 10px;
 	}
 </style>

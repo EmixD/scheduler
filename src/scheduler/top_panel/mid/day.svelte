@@ -31,7 +31,6 @@
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
-		padding: 0;
 	}
 	.ll2 {
 		font-family: Roboto;

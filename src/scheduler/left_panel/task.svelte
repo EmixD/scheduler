@@ -38,18 +38,18 @@
 		</div>
 		<div class="yysbp ggshadowtext yynoselect ll4">
 			{#if showui}
-				<div class="yysf yycc yynoselect ggshadowtext" on:click={tick} out:fade>
+				<div class="yysf yycc yynoselect ggshadowtext" on:click={tick} out:fade={{ duration: 200 }}>
 					<Fa size="1x" icon={task.tick ? faXmark : faCheck} />
 				</div>
-				<div class="yysf yycc yynoselect ggshadowtext" on:click={del} out:fade>
+				<div class="yysf yycc yynoselect ggshadowtext" on:click={del} out:fade={{ duration: 200 }}>
 					<Fa size="1x" icon={faTrashCan} />
 				</div>
 			{/if}
 		</div>
 	</div>
 	<div class="yysbp ll5 ggshadowtext yynoselect">
-		<p class="yysbp">
-			<nobr class="yysbp">{task.text}</nobr>
+		<p class="yysbc">
+			<nobr class="yysbc">{task.text}</nobr>
 		</p>
 	</div>
 </div>
@@ -58,7 +58,6 @@
 	.ll1 {
 		display: flex;
 		flex-direction: column;
-		gap: 0px;
 		padding: 10px;
 		border-radius: 20px;
 	}
@@ -82,7 +81,6 @@
 		justify-content: right;
 		gap: 10px;
 		padding-right: 5px;
-		overflow: hidden;
 	}
 	.ll5 {
 		font-family: Roboto;
