@@ -1,34 +1,34 @@
-/* global styles for this project. TODO: prefix "gg" for global,
+/* global styles for this project. Prefix "gg" for global,
  "ll" for local (declared within the component) */
 
 body{
     background-color: #212530;
 }
-.colorscheduler1{
+.gg-c-1{
     background-color: #D4D3FF;
 }
-.colorscheduler2{
+.gg-c-2{
     background-color: #212530;
 }
-.colorgreen{
+.gg-c-day1{
     background-color: #DBFFD8;
 }
-.colorbutton{
+.gg-c-button{
     background-color: #B6B5FF;
 }
-.colortaskfuture{
+.gg-c-task1{
     background-color: #AEACFF;
 }
-.colortasktick{
+.gg-c-task2{
     background-color: #AEFFAC;
 }
 
-.shadow{
+.ggshadow{
     box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
 }
-.shadowborder{
+.ggshadowborder{
     box-shadow:  0px 0px 0px 2px #8D8D8D,2px 4px 4px rgba(0, 0, 0, 0.1);
 }
-.shadowtext{
+.ggshadowtext{
     text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.2);
 }

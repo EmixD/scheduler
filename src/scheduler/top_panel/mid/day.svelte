@@ -15,7 +15,7 @@
 </script>
 
 <div
-	class={'yysbc yycc colorgreen ll1' + (selected ? ' shadowborder' : ' shadow')}
+	class={'yysbc yycc gg-c-day1 ll1' + (selected ? ' ggshadowborder' : ' ggshadow')}
 	on:click={select}
 >
 	<p class="yysbc yynoselect ll2">{ddGetWeekDayStringShort(ddate)}</p>

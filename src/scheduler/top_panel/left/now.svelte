@@ -33,22 +33,22 @@
 
 <div class="yysbp yycc ll1">
 	<div class="yys-wbp-hbc yycc">
-		<p class="yysbc shadowtext ll2">{ddGetWeekDayString(ddate)}</p>
+		<p class="yysbc ggshadowtext ll2">{ddGetWeekDayString(ddate)}</p>
 	</div>
 
 	<div
 		class="yys-wbp-hbc yycc yynoselect"
 		on:click={() => dispatch('message', { command: 'setCurrentDay' })}
 	>
-		<p class="yysbc shadowtext ll3">{ttGetHoursString(ttime)}</p>
-		<p class="yysbc shadowtext ll3" style="width: 0.5ch;">
+		<p class="yysbc ggshadowtext ll3">{ttGetHoursString(ttime)}</p>
+		<p class="yysbc ggshadowtext ll3" style="width: 0.5ch;">
 			{ttGetSeconds(ttime) % 2 === 0 ? `:` : ` `}
 		</p>
-		<p class="yysbc shadowtext ll3">{ttGetMinutesString(ttime)}</p>
+		<p class="yysbc ggshadowtext ll3">{ttGetMinutesString(ttime)}</p>
 	</div>
 
 	<div class="yys-wbp-hbc yycc">
-		<p class="yysbc shadowtext ll4">
+		<p class="yysbc ggshadowtext ll4">
 			{ddGetDayString(ddate) + ' ' + ddGetMonthNameString(ddate)}
 		</p>
 	</div>

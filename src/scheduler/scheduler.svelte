@@ -46,23 +46,23 @@
 </script>
 
 <div class="yysbp yycc">
-	<div class="yysbc colorscheduler2 ll1">
+	<div class="yysbc gg-c-2 ll1">
 		<div class="yys-wbp-hbc ll2">
-			<div class="yysbp yycc colorscheduler1">
+			<div class="yysbp yycc gg-c-1">
 				<SNow on:message={handleMessage} />
 			</div>
-			<div class="yysbp yycc colorscheduler1">
+			<div class="yysbp yycc gg-c-1">
 				<SWeek {selectedWeekFirstDateDay} {selectedDateDay} on:message={handleMessage} />
 			</div>
-			<div class="yysbp yycc colorscheduler1">
+			<div class="yysbp yycc gg-c-1">
 				<SProfile {user} />
 			</div>
 		</div>
 		<div class="yysbp ll3">
-			<div class="yysbp colorscheduler1">
+			<div class="yysbp gg-c-1">
 				<STasks {tasks} {selectedDateDay} on:message={handleMessage} />
 			</div>
-			<div class="yysbp colorscheduler1">
+			<div class="yysbp gg-c-1">
 				<SNew ddate={selectedDateDay} on:message={handleMessage} />
 			</div>
 		</div>

@@ -29,7 +29,7 @@
 	</div>
 	<div class="yys-wbp-hbc yycc ll3">
 		<div
-			class="yysbc yynoselect yycc colorbutton llbtn shadow"
+			class="yysbc yynoselect yycc gg-c-button llbtn ggshadow"
 			on:click={() =>
 				dispatch('message', {
 					command: 'selectWeekStartDay',
@@ -38,11 +38,11 @@
 		>
 			<Fa color="#228" size="1.5x" icon={faArrowLeft} />
 		</div>
-		<div class="yysbc yynoselect yycc colorbutton llbtn shadow">
+		<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow">
 			<Fa color="#228" size="1.5x" icon={faCalendarDays} />
 		</div>
 		<div
-			class="yysbc yynoselect yycc colorbutton llbtn shadow"
+			class="yysbc yynoselect yycc gg-c-button llbtn ggshadow"
 			on:click={() =>
 				dispatch('message', {
 					command: 'selectWeekStartDay',

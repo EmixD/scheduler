@@ -19,7 +19,7 @@
 </script>
 
 <div
-	class="yys-wbp-hbc shadow ll1 {task.tick ? 'colortasktick' : 'colortaskfuture'}"
+	class="yys-wbp-hbc ggshadow ll1 {task.tick ? 'gg-c-task2' : 'gg-c-task1'}"
 	on:mouseenter={() => {
 		showui = true;
 	}}
@@ -28,7 +28,7 @@
 	}}
 >
 	<div class="yys-wbp-hbc ll2">
-		<div class="yysbp shadowtext yynoselect ll3">
+		<div class="yysbp ggshadowtext yynoselect ll3">
 			<nobr>
 				{ttGetHoursString(task.ttime) + ':' + ttGetMinutesString(task.ttime)}
 			</nobr>
@@ -36,18 +36,18 @@
 				({ttGetDurationString(task.tduration)})
 			</nobr>
 		</div>
-		<div class="yysbp shadowtext yynoselect ll4">
+		<div class="yysbp ggshadowtext yynoselect ll4">
 			{#if showui}
-				<div class="yysf yycc yynoselect shadowtext" on:click={tick} out:fade>
+				<div class="yysf yycc yynoselect ggshadowtext" on:click={tick} out:fade>
 					<Fa size="1x" icon={task.tick ? faXmark : faCheck} />
 				</div>
-				<div class="yysf yycc yynoselect shadowtext" on:click={del} out:fade>
+				<div class="yysf yycc yynoselect ggshadowtext" on:click={del} out:fade>
 					<Fa size="1x" icon={faTrashCan} />
 				</div>
 			{/if}
 		</div>
 	</div>
-	<div class="yysbp ll5 shadowtext yynoselect">
+	<div class="yysbp ll5 ggshadowtext yynoselect">
 		<p class="yysbp">
 			<nobr class="yysbp">{task.text}</nobr>
 		</p>
