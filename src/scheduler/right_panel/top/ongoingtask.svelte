@@ -6,7 +6,7 @@
 	import { fade } from 'svelte/transition';
 	export let task;
 	import { createEventDispatcher } from 'svelte';
-	import { ttGetHoursString, ttGetMinutesString, ttGetDurationString } from '../../ddtt/ttime';
+	import { ttGetHoursString, ttGetMinutesString, ttGetDurationString } from '../../../ddtt/ttime';
 
 	const dispatch = createEventDispatcher();
 	function del() {
@@ -15,44 +15,39 @@
 	function tick() {
 		dispatch('message', { command: 'tickTask', id: task.id, tick: !task.tick });
 	}
-	let showui = false;
 </script>
 
-<div
-	class="yys-wbp-hbc ggshadow ll1 {task.tick ? 'gg-c-task2' : 'gg-c-task1'}"
-	on:mouseenter={() => {
-		showui = true;
-	}}
-	on:mouseleave={() => {
-		showui = false;
-	}}
->
-	<div class="yys-wbp-hbc ll2">
-		<div class="yysbp ggshadowtext yynoselect ll3">
-			{#if task.ttime !== 0}
-				<nobr>
-					{ttGetHoursString(task.ttime) + ':' + ttGetMinutesString(task.ttime) + ','}
-				</nobr>
-			{/if}
+<div class="yysbp ggshadow ll1 {task.tick ? 'gg-c-task2' : 'gg-c-task1'}">
+	<div class="yysbp ggshadowtext yynoselect ll3">
+		{#if task.ttime !== 0}
 			<nobr>
-				{ttGetDurationString(task.tduration)}
+				{ttGetHoursString(task.ttime) + ':' + ttGetMinutesString(task.ttime)}
 			</nobr>
-		</div>
-		<div class="yysbp ggshadowtext yynoselect ll4">
-			{#if showui}
-				<div class="yysf yycc yynoselect ggshadowtext" on:click={tick} out:fade={{ duration: 200 }}>
-					<Fa size="1x" icon={task.tick ? faXmark : faCheck} />
-				</div>
-				<div class="yysf yycc yynoselect ggshadowtext" on:click={del} out:fade={{ duration: 200 }}>
-					<Fa size="1x" icon={faTrashCan} />
-				</div>
-			{/if}
-		</div>
+		{/if}
+		<nobr>
+			{ttGetDurationString(task.tduration)}
+		</nobr>
 	</div>
-	<div class="yysbp ll5 ggshadowtext yynoselect">
+
+	<div class="yysbp yycc ll5 ggshadowtext yynoselect">
 		<p class="yysbc">
 			<nobr class="yysbc">{task.text}</nobr>
 		</p>
+	</div>
+
+	<div class="yysbp ggshadowtext yynoselect ll4">
+		<div class="yysf yycc yynoselect ggshadowtext" on:click={tick} out:fade={{ duration: 200 }}>
+			<Fa size="1x" icon={task.tick ? faXmark : faCheck} />
+		</div>
+		<div class="yysf yycc yynoselect ggshadowtext" on:click={tick} out:fade={{ duration: 200 }}>
+			<Fa size="1x" icon={task.tick ? faXmark : faCheck} />
+		</div>
+		<div class="yysf yycc yynoselect ggshadowtext" on:click={tick} out:fade={{ duration: 200 }}>
+			<Fa size="1x" icon={task.tick ? faXmark : faCheck} />
+		</div>
+		<div class="yysf yycc yynoselect ggshadowtext" on:click={del} out:fade={{ duration: 200 }}>
+			<Fa size="1x" icon={faTrashCan} />
+		</div>
 	</div>
 </div>
 
@@ -61,14 +56,10 @@
 		display: flex;
 		flex-direction: column;
 		padding: 10px;
+		gap: 10px;
 		/* border-radius: 20px; */
 	}
-	.ll2 {
-		display: grid;
-		grid-template-columns: auto 1fr;
-		grid-template-rows: auto;
 
-	}
 	.ll3 {
 		display: flex;
 		flex-direction: row;
@@ -76,20 +67,20 @@
 		font-family: Roboto;
 		font-style: normal;
 		font-weight: normal;
-		font-size: 16px;
+		font-size: 18px;
 		color: #007;
 	}
 	.ll4 {
 		display: flex;
 		flex-direction: row;
-		justify-content: right;
 		gap: 10px;
 		padding-right: 5px;
 		font-family: Roboto;
 		font-style: normal;
 		font-weight: normal;
-		font-size: 16px;
+		font-size: 18px;
 		color: #007;
+		justify-content: space-evenly;
 	}
 	.ll5 {
 		font-family: Roboto;

@@ -9,7 +9,7 @@ export function order(tasks) {
     let result = [];
     let tasksKnown = tasks.filter(t => t.ttime > 0); // ttime = 0 for undefined
     let tasksUnKnown = tasks.filter(t => t.ttime === 0).sort(
-        (a, b) => a.tduration < b.tduration
+        (a, b) => a.tduration===b.tduration?a.createdAt<b.createdAt:a.tduration < b.tduration
     ); // undefined start time. Sorted by duration, desc. !Remember that sort sorts in-place!
 
     for (let t of tasksKnown) {
@@ -55,6 +55,19 @@ export function order(tasks) {
     }
     result.sort((a, b) => a.slot > b.slot);//!Remember that sort sorts in-place!
     return result;
+}
+
+export function getSuggestedTask(tasks,ttime){
+    let slot=ttimeToSlot(ttime);
+    for(let t of tasks){
+        if(t.slot<=slot){
+            return t
+        }
+        if(t.ttime===0){
+            return t
+        }
+    }
+    return false;
 }
 
 function ttimeToSlot(ttime) {

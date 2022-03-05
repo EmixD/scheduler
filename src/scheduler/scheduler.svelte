@@ -2,8 +2,9 @@
 	import SWeek from './top_panel/mid/week.svelte';
 	import SNow from './top_panel/left/now.svelte';
 	import STasks from './left_panel/tasks.svelte';
-	import SNew from './right_panel/new.svelte';
-	import SNone from './right_panel/none.svelte';
+	import SNew from './right_panel/bottom/new.svelte';
+	import SNone from './right_panel/bottom/none.svelte';
+	import SOngoing from './right_panel/top/ongoing.svelte';
 	import SProfile from './top_panel/right/profile.svelte';
 	import { db } from './firebase';
 	import { ddGetWeekStart, ddToday } from '../ddtt/ddate';
@@ -17,7 +18,7 @@
 
 	let selectedDateDay = ddToday();
 	let selectedWeekFirstDateDay = ddGetWeekStart(selectedDateDay);
-	let rightPanelState = 'none';
+	let rightPanelState = 'newTask';
 
 	function handleMessage(event) {
 		// console.log(event.detail);
@@ -43,7 +44,7 @@
 		if (event.detail.command === 'setCurrentDay') {
 			selectedDateDay = ddToday();
 			selectedWeekFirstDateDay = ddGetWeekStart(selectedDateDay);
-			rightPanelState = 'none';
+			// rightPanelState = 'none';
 		}
 		if (event.detail.command === 'changeRightPanelState') {
 			rightPanelState = event.detail.state;
@@ -68,13 +69,18 @@
 			<div class="yysbp gg-c-1">
 				<STasks {tasks} {selectedDateDay} on:message={handleMessage} />
 			</div>
-			<div class="yysbp gg-c-1">
-				{#if rightPanelState === 'none'}
-					<SNone />
-				{/if}
-				{#if rightPanelState === 'newTask'}
-					<SNew ddate={selectedDateDay} on:message={handleMessage} />
-				{/if}
+			<div class="yysbp ll4">
+				<div class="yysbp gg-c-1">
+					<SOngoing {tasks} on:message={handleMessage} />
+				</div>
+				<div class="yysbp gg-c-1">
+					{#if rightPanelState === 'none'}
+						<SNone />
+					{/if}
+					{#if rightPanelState === 'newTask'}
+						<SNew ddate={selectedDateDay} on:message={handleMessage} />
+					{/if}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -100,5 +106,11 @@
 		grid-template-rows: 1fr;
 		grid-template-columns: 1fr 1fr;
 		gap: 8px;
+	}
+	.ll4 {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 1fr;
+		gap: 10px;
 	}
 </style>

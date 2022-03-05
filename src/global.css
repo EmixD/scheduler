@@ -16,6 +16,9 @@ body{
 .gg-c-button{
     background-color: #B6B5FF;
 }
+.gg-c-button:hover{
+    background-color: #BCBBFF;
+}
 .gg-c-task1{
     background-color: #AEACFF;
 }
@@ -32,3 +35,4 @@ body{
 .ggshadowtext{
     text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.2);
 }
+

@@ -8,9 +8,6 @@
 	export let tasks;
 	export let selectedDateDay;
 	const dispatch = createEventDispatcher();
-	function forward(event) {
-		dispatch('message', event.detail);
-	}
 </script>
 
 <div class="yysbp ll1">
@@ -33,7 +30,7 @@
 				class="yys-wbp-hbc"
 			>
 				<!-- {#if task.ddate === selectedDateDay} -->
-				<STTask {task} on:message={forward} />
+				<STTask {task} on:message/>
 				<!-- {/if} -->
 			</div>
 		{/each}

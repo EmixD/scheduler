@@ -1,13 +1,13 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	import { toTwoDigits } from '../../ddtt/ddtt';
+	import { toTwoDigits } from '../../../ddtt/ddtt';
 	import { v4 as uuidv4 } from 'uuid';
 	import {
 		ttFromDateObj,
 		ttGetHours,
 		ttGetMinutes,
 		ttGetDurationStringLonger
-	} from '../../ddtt/ttime';
+	} from '../../../ddtt/ttime';
 	export let ddate; // yyyymmdd - number: current selected day
 
 	let taskText = '';
@@ -19,7 +19,7 @@
 	let showStartClock = false;
 
 	function submit() {
-		if(taskText.length===0){
+		if (taskText.length === 0) {
 			return;
 		}
 		dispatch('message', {
@@ -38,6 +38,9 @@
 	}
 
 	function wheelStartTimeh(event) {
+		if(!showStartClock){
+			return;
+		}
 		event.preventDefault();
 		startTimeh -= Math.sign(event.deltaY);
 		if (startTimeh < 11) {
@@ -49,6 +52,9 @@
 	}
 
 	function wheelStartTimem(event) {
+		if(!showStartClock){
+			return;
+		}
 		event.preventDefault();
 		startTimem -= Math.sign(event.deltaY) * 10;
 		if (startTimem < 0) {
@@ -84,51 +90,50 @@
 	<div class="yys-wbp-hbc yycc yynoselect ll2">
 		<p>Add New Task</p>
 	</div>
-	<div class="yys-wbp-hbc ll25">
-		<div class="yys-wbp-hbc yycc ggshadow gg-c-task1 ll26">
-			<div class="yys-wbp-hbc yycc ll3">
-				<div
-					class="yysbc yycc ggshadowtext ll5"
-					on:click={() => {
-						showStartClock = !showStartClock;
-					}}
-				>
-					<div class="yynoselect" on:wheel={wheelStartTimeh}>
-						{showStartClock ? toTwoDigits(startTimeh) : '--'}
-					</div>
-					<div class="yynoselect" on:wheel={wheelStartTimeh}>:</div>
-					<div class="yynoselect" on:wheel={wheelStartTimem}>
-						{showStartClock ? toTwoDigits(startTimem) : '--'}
-					</div>
+	<div class="yysbp yycc ll3">
+		<input
+			class="ggshadow ll4"
+			bind:value={taskText}
+			maxlength="50"
+			on:keypress={(e) => {
+				if (e.key === 'Enter') {
+					submit();
+				}
+			}}
+		/>
+		<div class="yysbp yycc ll5">
+			<div
+				class="yysbc yycc ggshadowtext ll6"
+				on:click={() => {
+					showStartClock = !showStartClock;
+				}}
+			>
+				<div class="yynoselect" on:wheel={wheelStartTimeh}>
+					{showStartClock ? toTwoDigits(startTimeh) : '--'}
 				</div>
-
-				<div class="yysbc yycc ggshadowtext ll5">
-					<div class="yynoselect" on:wheel={wheelDuration}>
-						{ttGetDurationStringLonger(tDurationh * 10000 + tDurationm * 100)}
-					</div>
+				<div class="yynoselect" on:wheel={wheelStartTimeh}>:</div>
+				<div class="yynoselect" on:wheel={wheelStartTimem}>
+					{showStartClock ? toTwoDigits(startTimem) : '--'}
 				</div>
 			</div>
-			<div class="yys-wbp-hbc yycc ggshadowtext ll6">
-				<input
-					class="ggshadow ll7"
-					bind:value={taskText}
-					maxlength="50"
-					on:keypress={(e) => {
-						if (e.key === 'Enter') {
-							submit();
-						}
-					}}
-				/>
-				<button class="ggshadow ll8" on:click={submit}>Submit</button>
+			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" on:click={submit}>Submit</div>
+			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" on:click={submit}>Submit</div>
+		</div>
+		<div class="yysbp yycc ll7">
+			<div class="yynoselect ll6" on:wheel={wheelDuration}>
+				{ttGetDurationStringLonger(tDurationh * 10000 + tDurationm * 100)}
 			</div>
+			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" on:click={submit}>Submit</div>
+			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" on:click={submit}>Submit</div>
 		</div>
 	</div>
 </div>
 
 <style>
 	.ll1 {
-		display: flex;
-		flex-direction: column;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto 1fr;
 	}
 	.ll2 {
 		background-color: #0d1c9d;
@@ -138,44 +143,47 @@
 		font-weight: normal;
 		font-size: 24px;
 	}
-	.ll25 {
-		padding: 10px;
-	}
-	.ll26{
-		padding: 10px;
-		gap:10px;
-		display: flex;
-		flex-direction: column;
-	}
-	.ll3 {
+	.ll3{
 		display: grid;
-		grid-template-columns: 1fr 1fr;
-		grid-template-rows: auto;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto 1fr 1fr;
+		padding: 10px;
+		padding-top: 15px;
 		gap: 10px;
+	}
+	.ll4{
+		background-color: #e0e2f7;
+		border: solid;
+		border-color: #aaf;
+		border-width: 1px;
+		padding: 3px;
+		font-size: 18px;
+	}
+	.ll4:focus{
+		outline: none;
+	}
+	.ll5{
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 1fr;
 		justify-items: center;
+		align-items: end;
 	}
-	.ll5 {
-		display: flex;
-		flex-direction: row;
-		font-size: 2rem;
-		/* background-color: rgba(0, 0, 0, 0.1); */
+	.ll6{
+		font-size: 1.8rem;
 	}
-	.ll6 {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		padding-left: 10px;
-		padding-right: 10px;
+	.ll7{
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 1fr;
+		justify-items: center;
+		align-items: start;
 	}
-	.ll7 {
-		/* width: 250px; */
-		width: 100%;
-		height: 30px;
-		font-size: 1.2rem;
-	}
-	.ll8 {
+	.llbtn {
+		height: 40px;
 		width: 100px;
-		height: 30px;
+		color: #228;
 		font-size: 1.2rem;
-	}
+		font-weight: bold;
+	} 
 </style>

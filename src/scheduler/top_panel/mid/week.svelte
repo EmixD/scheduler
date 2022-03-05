@@ -72,6 +72,6 @@
 	.llbtn {
 		height: 34px;
 		width: 87px;
-		border-radius: 47px;
+		/* border-radius: 47px; */
 	}
 </style>
