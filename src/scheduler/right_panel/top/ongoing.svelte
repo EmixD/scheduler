@@ -52,6 +52,8 @@
 		grid-template-columns: repeat(4,1fr);
 		grid-template-rows: auto;
 		justify-items: center;
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 	.llbtn {
 		height: 40px;
