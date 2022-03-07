@@ -31,7 +31,9 @@
 				ttime: showStartClock ? startTimeh * 10000 + startTimem * 100 : 0,
 				tduration: tDurationh * 10000 + tDurationm * 100,
 				originalId: uuidv4(),
-				createdAt: ttFromDateObj(new Date())
+				createdAt: ttFromDateObj(new Date()),
+				onGoing: false,
+				selected: false
 			}
 		});
 		taskText = '';

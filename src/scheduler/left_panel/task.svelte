@@ -3,6 +3,7 @@
 	import { faTrashCan } from '@fortawesome/free-solid-svg-icons/faTrashCan';
 	import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 	import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
+	import { faGear } from '@fortawesome/free-solid-svg-icons/faGear';
 	import { fade } from 'svelte/transition';
 	export let task;
 	import { createEventDispatcher } from 'svelte';
@@ -15,6 +16,9 @@
 	function tick() {
 		dispatch('message', { command: 'tickTask', id: task.id, tick: !task.tick });
 	}
+	function setSelected() {
+		dispatch('message', {command: 'SetSelected', id: task.id, selected: true})
+	}
 	let showui = false;
 </script>
 
@@ -26,6 +30,7 @@
 	on:mouseleave={() => {
 		showui = false;
 	}}
+	 on:click={setSelected}
 >
 	<div class="yys-wbp-hbc ll2">
 		<div class="yysbp ggshadowtext yynoselect ll3">
@@ -37,6 +42,12 @@
 			<nobr>
 				{ttGetDurationString(task.tduration)}
 			</nobr>
+			{#if task.onGoing}
+				<div>Ongoing</div>
+			{/if}
+			{#if task.selected}
+				<div>Selected</div>
+			{/if}
 		</div>
 		<div class="yysbp ggshadowtext yynoselect ll4">
 			{#if showui}

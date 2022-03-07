@@ -15,31 +15,27 @@
 	function tick() {
 		dispatch('message', { command: 'tickTask', id: task.id, tick: !task.tick });
 	}
+	function setSelected() {
+		dispatch('message', {command: 'SetSelected', id: task.id, selected: true})
+	}
+	let showui = false;
 </script>
 
-<div class="yysbp ggshadow ll1 {task.tick ? 'gg-c-task2' : 'gg-c-task1'}">
-	<div class="yysbp ggshadowtext yynoselect ll3">
-		{#if task.ttime !== 0}
-			<nobr>
-				{ttGetHoursString(task.ttime) + ':' + ttGetMinutesString(task.ttime)}
-			</nobr>
-		{/if}
-		<nobr>
-			{ttGetDurationString(task.tduration)}
-		</nobr>
-	</div>
-
-	<div class="yysbp yycc ll5 ggshadowtext yynoselect">
+<div
+	class="yys-wbp-hbc ggshadow ll1 {task.tick ? 'gg-c-task2' : 'gg-c-task1'}"
+	on:mouseenter={() => {
+		showui = true;
+	}}
+	on:mouseleave={() => {
+		showui = false;
+	}}
+	 on:click={setSelected}
+>
+	<div class="yysbp ll5 ggshadowtext yynoselect">
 		<p class="yysbc">
 			<nobr class="yysbc">{task.text}</nobr>
 		</p>
 	</div>
-	{#if task.onGoing}
-		<div>Ongoing</div>
-	{/if}
-	{#if task.selected}
-		<div>Selected</div>
-	{/if}
 </div>
 
 <style>
@@ -47,19 +43,7 @@
 		display: flex;
 		flex-direction: column;
 		padding: 10px;
-		gap: 10px;
 		/* border-radius: 20px; */
-	}
-
-	.ll3 {
-		display: flex;
-		flex-direction: row;
-		gap: 10px;
-		font-family: Roboto;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 18px;
-		color: #007;
 	}
 	.ll5 {
 		font-family: Roboto;

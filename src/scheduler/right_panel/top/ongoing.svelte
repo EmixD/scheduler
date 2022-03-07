@@ -1,16 +1,15 @@
 <script>
 	import { ttFromDateObj } from '../../../ddtt/ttime';
 	import { ddToday } from '../../../ddtt/ddate';
-	import { order, getSuggestedTask } from '../../logic/logic';
+	import { order, getSelected,getSuggestedTask, getOngoing } from '../../logic/logic';
 	import SOTask from './ongoingtask.svelte';
-	import SOTaskC from '../../left_panel/task.svelte';
+	import SOTaskC from './ongoingtaskshort.svelte';
+	import { createEventDispatcher } from 'svelte';
 	export let tasks;
+	const dispatch = createEventDispatcher();
 
-	$: orderedTasks = order(tasks.filter(
-		(task) => 
-		!task.tick&&(task.ddate === ddToday())
-		));
-	$: suggestedTask = getSuggestedTask(orderedTasks, ttFromDateObj(new Date()));
+	$: orderedTasks = order(tasks.filter((task) => !task.tick && task.ddate === ddToday()));
+	$: ongoingTask = getSelected(orderedTasks)||getOngoing(orderedTasks)||getSuggestedTask(orderedTasks, ttFromDateObj(new Date()));
 </script>
 
 <div class="yysbp ll1">
@@ -19,19 +18,21 @@
 	</div>
 	<div class="yysbp ll3">
 		<div class="yysbp">
-			{#if suggestedTask}
-				<SOTask task={suggestedTask} on:message/>
+			{#if ongoingTask}
+				<SOTask task={ongoingTask} on:message />
 			{/if}
 		</div>
 		<div class="yys-wbp-hbc ll4">
-			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" >+</div>
-			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" >+</div>
-			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" >+</div>
-			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" >+</div>
+			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" on:click={
+dispatch('message', { command: 'SetOnGoing', id: ongoingTask.id, onGoing: !ongoingTask.onGoing })
+
+			}>Tggl og</div>
+			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" on:click={()=>dispatch('message', { command: 'tickTask', id: ongoingTask.id, tick: !ongoingTask.tick })}>Done</div>
+			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" on:click={()=>dispatch('message', { command: 'removeTask', id: ongoingTask.id })}>Delete</div>
 		</div>
 		<div class="yys-wbp-hbc">
-			{#if suggestedTask}
-				<SOTaskC task={suggestedTask} on:message/>
+			{#if tasks[0]}
+				<SOTaskC task={orderedTasks[0]} on:message />
 			{/if}
 		</div>
 	</div>
@@ -53,14 +54,14 @@
 	}
 	.ll3 {
 		padding: 10px;
-		gap:10px;
+		gap: 10px;
 		display: grid;
 		grid-template-columns: 1fr;
 		grid-template-rows: 1fr auto auto;
 	}
-	.ll4{
+	.ll4 {
 		display: grid;
-		grid-template-columns: repeat(4,1fr);
+		grid-template-columns: repeat(3, 1fr);
 		grid-template-rows: auto;
 		justify-items: center;
 		padding-left: 10px;
@@ -72,5 +73,5 @@
 		color: #228;
 		font-size: 1.2rem;
 		font-weight: bold;
-	} 
+	}
 </style>

@@ -35,6 +35,22 @@
 		if (event.detail.command === 'tickTask') {
 			db.collection(user.uid).doc(event.detail.id).update({ tick: event.detail.tick });
 		}
+		if( event.detail.command==='SetOnGoing'){
+			for(let t of tasks){
+				if(t.onGoing){
+					db.collection(user.uid).doc(t.id).update({ onGoing: false });
+				}
+			}
+			db.collection(user.uid).doc(event.detail.id).update({ onGoing: event.detail.onGoing });
+		}
+		if( event.detail.command==='SetSelected'){
+			for(let t of tasks){
+				if(t.selected){
+					db.collection(user.uid).doc(t.id).update({ selected: false });
+				}
+			}
+			db.collection(user.uid).doc(event.detail.id).update({ selected: event.detail.selected });
+		}
 		if (event.detail.command === 'selectDay') {
 			selectedDateDay = event.detail.ddate;
 		}
@@ -49,6 +65,7 @@
 		if (event.detail.command === 'changeRightPanelState') {
 			rightPanelState = event.detail.state;
 		}
+		
 	}
 </script>
 
