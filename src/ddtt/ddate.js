@@ -9,6 +9,9 @@ export function ddToday() {
 
 export function ddGetWeekStart(ddate) {
     let dateObj = new Date(ddGetYear(ddate), ddGetMonth(ddate) - 1, ddGetDay(ddate));
+    if(dateObj.getDay()===0){
+        return ddValidateMath(ddate - 7 + 1); // Monday start
+    }
     return ddValidateMath(ddate - dateObj.getDay() + 1); // Monday start
 }
 

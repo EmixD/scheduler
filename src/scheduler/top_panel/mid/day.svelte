@@ -5,7 +5,8 @@
 	import {
 		ddGetMonthNameStringShort,
 		ddGetDayString,
-		ddGetWeekDayStringShort
+		ddGetWeekDayStringShort,
+		ddToday
 	} from '../../../ddtt/ddate';
 
 	const dispatch = createEventDispatcher();
@@ -15,7 +16,7 @@
 </script>
 
 <div
-	class={'yysbc yycc gg-c-day1 ll1' + (selected ? ' ggshadowborder' : ' ggshadow')}
+	class={'yysbc yycc ll1' +  ((ddate>=ddToday())?' gg-c-day1':' gg-c-day2')  + (selected ? ' ggshadowborder' : ' ggshadow')}
 	on:click={select}
 >
 	<p class="yysbc yynoselect ll2">{ddGetWeekDayStringShort(ddate)}</p>

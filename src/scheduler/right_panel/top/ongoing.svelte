@@ -3,6 +3,7 @@
 	import { ddToday } from '../../../ddtt/ddate';
 	import { order, getSuggestedTask } from '../../logic/logic';
 	import SOTask from './ongoingtask.svelte';
+	import SOTaskC from '../../left_panel/task.svelte';
 	export let tasks;
 
 	$: orderedTasks = order(tasks.filter(
@@ -17,15 +18,22 @@
 		<p>Suggested Task</p>
 	</div>
 	<div class="yysbp ll3">
-		{#if suggestedTask}
-			<SOTask task={suggestedTask} on:message/>
-		{/if}
-	</div>
-	<div class="yys-wbp-hbc ll4">
-		<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" >+</div>
-		<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" >+</div>
-		<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" >+</div>
-		<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" >+</div>
+		<div class="yysbp">
+			{#if suggestedTask}
+				<SOTask task={suggestedTask} on:message/>
+			{/if}
+		</div>
+		<div class="yys-wbp-hbc ll4">
+			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" >+</div>
+			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" >+</div>
+			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" >+</div>
+			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" >+</div>
+		</div>
+		<div class="yys-wbp-hbc">
+			{#if suggestedTask}
+				<SOTaskC task={suggestedTask} on:message/>
+			{/if}
+		</div>
 	</div>
 </div>
 
@@ -33,8 +41,7 @@
 	.ll1 {
 		display: grid;
 		grid-template-columns: 1fr;
-		grid-template-rows: auto 1fr auto;
-		padding-bottom: 10px;
+		grid-template-rows: auto 1fr;
 	}
 	.ll2 {
 		background-color: #0d1c9d;
@@ -46,6 +53,10 @@
 	}
 	.ll3 {
 		padding: 10px;
+		gap:10px;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr auto auto;
 	}
 	.ll4{
 		display: grid;

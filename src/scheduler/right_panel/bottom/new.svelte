@@ -86,11 +86,11 @@
 	}
 </script>
 
-<div class="yysbp ll1">
+<div class="yys-wbp-hbc ll1">
 	<div class="yys-wbp-hbc yycc yynoselect ll2">
 		<p>Add New Task</p>
 	</div>
-	<div class="yysbp yycc ll3">
+	<div class="yys-wbp-hbc yycc ll3">
 		<input
 			class="ggshadow ll4"
 			bind:value={taskText}
@@ -101,7 +101,7 @@
 				}
 			}}
 		/>
-		<div class="yysbp yycc ll5">
+		<div class="yys-wbp-hbc yycc ll5">
 			<div
 				class="yysbc yycc ggshadowtext ll6"
 				on:click={() => {
@@ -117,15 +117,11 @@
 				</div>
 			</div>
 			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" on:click={submit}>Submit</div>
-			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" on:click={submit}>Submit</div>
-		</div>
-		<div class="yysbp yycc ll7">
 			<div class="yynoselect ll6" on:wheel={wheelDuration}>
 				{ttGetDurationStringLonger(tDurationh * 10000 + tDurationm * 100)}
 			</div>
-			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" on:click={submit}>Submit</div>
-			<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow" on:click={submit}>Submit</div>
 		</div>
+
 	</div>
 </div>
 
@@ -146,7 +142,7 @@
 	.ll3{
 		display: grid;
 		grid-template-columns: 1fr;
-		grid-template-rows: auto 1fr 1fr;
+		grid-template-rows: auto 1fr;
 		padding: 10px;
 		padding-top: 15px;
 		gap: 10px;
@@ -171,13 +167,6 @@
 	}
 	.ll6{
 		font-size: 1.8rem;
-	}
-	.ll7{
-		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
-		grid-template-rows: 1fr;
-		justify-items: center;
-		align-items: start;
 	}
 	.llbtn {
 		height: 40px;

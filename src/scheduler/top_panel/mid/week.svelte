@@ -7,7 +7,7 @@
 	import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight';
 	import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/faCalendarDays';
 	// import { flip } from 'svelte/animate';
-	import { fade , fly} from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
 	export let selectedWeekFirstDateDay;
 	export let selectedDateDay;
 
@@ -24,9 +24,7 @@
 <div class="yysbp yycc ll1">
 	<div class="yys-wbp-hbc yycc ll2">
 		{#each days as day (day)}
-			<div
-				class="yysbc"
-			>
+			<div class="yysbc">
 				<SWDay ddate={day} selected={selectedDateDay === day} on:message={handleMessage} />
 			</div>
 		{/each}
@@ -42,7 +40,10 @@
 		>
 			<Fa color="#228" size="1.5x" icon={faArrowLeft} />
 		</div>
-		<div class="yysbc yynoselect yycc gg-c-button llbtn ggshadow">
+		<div
+			class="yysbc yynoselect yycc gg-c-button llbtn ggshadow"
+			on:click={() => dispatch('message', { command: 'setCurrentDay' })}
+		>
 			<Fa color="#228" size="1.5x" icon={faCalendarDays} />
 		</div>
 		<div
