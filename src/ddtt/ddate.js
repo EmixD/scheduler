@@ -173,3 +173,16 @@ export function ddGetFullRelativeDate(ddbasis, ddate) {
     return ddGetMonthNameString(ddate) + ' ' + ddGetDayString(ddate) + wday;
 
 }
+
+export function ddGetFullRelativeDateShort(ddbasis, ddate) {
+    if (ddate === ddbasis) {
+        return 'Today';
+    }
+    if (ddate === ddValidateMath(ddbasis + 1)) {
+        return 'Tomorrow';
+    }
+    if (ddate === ddValidateMath(ddbasis - 1)) {
+        return 'Yesterday';
+    }
+    return ddGetMonthNameString(ddate) + ' ' + ddGetDayString(ddate);
+}

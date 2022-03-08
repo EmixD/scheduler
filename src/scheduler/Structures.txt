@@ -1,0 +1,25 @@
+task:
+        text: taskText,
+        tick: false,    <= should be renamed
+        ddate: ddate,
+        ttime: showStartClock ? startTimeh * 10000 + startTimem * 100 : 0,
+        tduration: tDurationh * 10000 + tDurationm * 100,
+        originalId: uuidv4(),    <= should be renamed
+        createdAt: ttFromDateObj(new Date()),
+        onGoing: false,   <= deprecated
+        selected: false,  <= deprecated
+        id
+
+command:
+		'addTask' new
+	    'deleteTask' id
+		'updateTask' task
+		'selectTask' id
+		'ongoingTask' id onGoing    <= should be renamed
+		'selectDay' ddate
+		'selectWeekStartDay' ddate
+		'setCurrentDay'    <= should be renamed
+		'changeRightPanelState' state   <= deprecated
+
+taskInfo: <= a local extension to tasks = should be implemented
+        array of {id, (info)}

@@ -4,11 +4,20 @@
 import { ttGetHours, ttGetMinutes } from '../../ddtt/ttime';
 
 export function order(tasks) {
+    console.time('order');
     let maxslot = ttimeToSlot(225000);
     let slots = Array(maxslot + 1).fill(true); // is free?
+
+    let completeTasks = tasks.filter(t => t.tick);
+    completeTasks.sort((a, b) => a.createdAt > b.createdAt);
+    for (let i in completeTasks) {
+        completeTasks[i].slot = -i;
+    }
+    
     let result = [];
-    let tasksKnown = tasks.filter(t => t.ttime > 0); // ttime = 0 for undefined
-    let tasksUnKnown = tasks.filter(t => t.ttime === 0).sort(
+    let tasksNotDone = tasks.filter(t => !t.tick);
+    let tasksKnown = tasksNotDone.filter(t => t.ttime > 0); // ttime = 0 for undefined
+    let tasksUnKnown = tasksNotDone.filter(t => t.ttime === 0).sort(
         (a, b) => a.tduration === b.tduration ? a.createdAt < b.createdAt : a.tduration < b.tduration
     ); // undefined start time. Sorted by duration, desc. !Remember that sort sorts in-place!
 
@@ -54,7 +63,8 @@ export function order(tasks) {
         }
     }
     result.sort((a, b) => a.slot > b.slot);//!Remember that sort sorts in-place!
-    return result;
+    console.timeEnd('order');
+    return [...completeTasks, ...result];
 }
 
 export function getSuggestedTask(tasks, ttime) {
@@ -93,7 +103,7 @@ function ttimeToSlot(ttime) {
     let m = ttGetMinutes(ttime);
     return (h - 11) * 6 + Math.floor(m / 10);
 }
-function ttimeToNslots(ttime) {
+export function ttimeToNslots(ttime) {
     // 10min=1slot
     let h = ttGetHours(ttime);
     let m = ttGetMinutes(ttime);

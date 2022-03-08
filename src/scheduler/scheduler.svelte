@@ -13,59 +13,66 @@
 	let tasks = [];
 	db.collection(user.uid).onSnapshot((data) => {
 		tasks = data.docs.map((x) => x.data());
-		// tasks.sort((a, b) => a.ttime > b.ttime); !Remember that sort sorts in-place!
 	});
 
 	let selectedDateDay = ddToday();
 	let selectedWeekFirstDateDay = ddGetWeekStart(selectedDateDay);
-	let rightPanelState = 'newTask';
 
 	function handleMessage(event) {
-		// console.log(event.detail);
+		console.log(event.detail);
 		if (event.detail.command === 'addTask') {
 			db.collection(user.uid)
 				.add(event.detail.new)
 				.then((result) => {
 					db.collection(user.uid).doc(result.id).update({ id: result.id });
 				});
+			return;
 		}
-		if (event.detail.command === 'removeTask') {
+		if (event.detail.command === 'deleteTask') {
 			db.collection(user.uid).doc(event.detail.id).delete();
+			return;
 		}
-		if (event.detail.command === 'tickTask') {
-			db.collection(user.uid).doc(event.detail.id).update({ tick: event.detail.tick });
+		if (event.detail.command === 'updateTask') {
+			db.collection(user.uid).doc(event.detail.task.id).update(event.detail.task);
+			return;
 		}
-		if( event.detail.command==='SetOnGoing'){
-			for(let t of tasks){
-				if(t.onGoing){
+		if (event.detail.command === 'selectTask') {
+			for (let t of tasks) {
+				if (t.selected && t.id!==event.detail.id) {
+					db.collection(user.uid).doc(t.id).update({ selected: false });
+				}
+			}
+			db.collection(user.uid).doc(event.detail.id).update({ selected: true });
+			return;
+		}
+		if (event.detail.command === 'ongoingTask') {
+			for (let t of tasks) {
+				if (t.onGoing) {
 					db.collection(user.uid).doc(t.id).update({ onGoing: false });
 				}
 			}
 			db.collection(user.uid).doc(event.detail.id).update({ onGoing: event.detail.onGoing });
+			return;
 		}
-		if( event.detail.command==='SetSelected'){
-			for(let t of tasks){
-				if(t.selected){
-					db.collection(user.uid).doc(t.id).update({ selected: false });
-				}
-			}
-			db.collection(user.uid).doc(event.detail.id).update({ selected: event.detail.selected });
-		}
+
 		if (event.detail.command === 'selectDay') {
 			selectedDateDay = event.detail.ddate;
+			selectedWeekFirstDateDay = ddGetWeekStart(selectedDateDay);
+			return;
 		}
 		if (event.detail.command === 'selectWeekStartDay') {
 			selectedWeekFirstDateDay = event.detail.ddate;
+			return;
 		}
 		if (event.detail.command === 'setCurrentDay') {
 			selectedDateDay = ddToday();
 			selectedWeekFirstDateDay = ddGetWeekStart(selectedDateDay);
-			// rightPanelState = 'none';
+			return;
 		}
 		if (event.detail.command === 'changeRightPanelState') {
 			rightPanelState = event.detail.state;
+			return;
 		}
-		
 	}
 </script>
 
@@ -91,12 +98,7 @@
 					<SOngoing {tasks} on:message={handleMessage} />
 				</div>
 				<div class="yysbp gg-c-1">
-					{#if rightPanelState === 'none'}
-						<SNone />
-					{/if}
-					{#if rightPanelState === 'newTask'}
-						<SNew ddate={selectedDateDay} on:message={handleMessage} />
-					{/if}
+					<SNew ddate={selectedDateDay} on:message={handleMessage} />
 				</div>
 			</div>
 		</div>

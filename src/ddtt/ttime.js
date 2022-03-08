@@ -52,3 +52,13 @@ export function ttGetDurationStringLonger(ttime){
 
     return h+'h '+toTwoDigits(m)+'m';
 }
+
+export function ttSlotToTtime(slot){
+    let h= 11+Math.floor(slot/6);
+    let m = 10*(slot%6);
+    return h*10000+m*100;
+}
+
+export function ttGetTimeString(ttime){
+    return ttGetHoursString(ttime) + ':' + ttGetMinutesString(ttime);
+}
