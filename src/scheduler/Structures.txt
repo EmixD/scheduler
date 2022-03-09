@@ -1,25 +1,47 @@
 task:
-        text: taskText,
-        tick: false,    <= should be renamed
-        ddate: ddate,
-        ttime: showStartClock ? startTimeh * 10000 + startTimem * 100 : 0,
-        tduration: tDurationh * 10000 + tDurationm * 100,
-        originalId: uuidv4(),    <= should be renamed
-        createdAt: ttFromDateObj(new Date()),
-        onGoing: false,   <= deprecated
-        selected: false,  <= deprecated
-        id
+text: taskText,
+tick: false,    <= should be renamed
+ddate: ddate,
+ttime: showStartClock ? startTimeh * 10000 + startTimem * 100 : 0,
+tduration: tDurationh * 10000 + tDurationm * 100,
+originalId: uuidv4(),    <= should be renamed
+createdAt: ttFromDateObj(new Date()),
+onGoing: false,   <= deprecated
+selected: false,  <= deprecated
+id
+
+task: (new)
+text: str
+completed: bool
+ddate: ddate
+ttime: ttime
+tdur: ttime
+id0: str <= deprecated
+id: str
+createdAt: ttime
+
+command: (new)
+'addTask' task
+'deleteTask' id
+'updateTask' task
+'selectTask' id
+'setOngoingTask' id ongoing 
+'selectDay' ddate
+'selectWeekStartDay' ddate
+'selectToday'
 
 command:
-		'addTask' new
-	    'deleteTask' id
-		'updateTask' task
-		'selectTask' id
-		'ongoingTask' id onGoing    <= should be renamed
-		'selectDay' ddate
-		'selectWeekStartDay' ddate
-		'setCurrentDay'    <= should be renamed
-		'changeRightPanelState' state   <= deprecated
+'addTask' new
+'deleteTask' id
+'updateTask' task
+'selectTask' id
+'ongoingTask' id onGoing    <= should be renamed
+'selectDay' ddate
+'selectWeekStartDay' ddate
+'setCurrentDay'    <= should be renamed
+'changeRightPanelState' state   <= deprecated
+
+
 
 taskInfo: <= a local extension to tasks = should be implemented
-        array of {id, (info)}
+        map of {id => {info}}

@@ -6,26 +6,19 @@
 	import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 	import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight';
 	import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/faCalendarDays';
-	// import { flip } from 'svelte/animate';
-	import { fade, fly } from 'svelte/transition';
 	export let selectedWeekFirstDateDay;
 	export let selectedDateDay;
 
 	$: days = [...Array(7).keys()].map((i) => ddValidateMath(selectedWeekFirstDateDay + i));
 
 	const dispatch = createEventDispatcher();
-	function handleMessage(event) {
-		if (event.detail.command === 'selectDay') {
-			dispatch('message', event.detail);
-		}
-	}
 </script>
 
 <div class="yysbp yycc ll1">
 	<div class="yys-wbp-hbc yycc ll2">
 		{#each days as day (day)}
 			<div class="yysbc">
-				<SWDay ddate={day} selected={selectedDateDay === day} on:message={handleMessage} />
+				<SWDay ddate={day} selected={selectedDateDay === day} on:message />
 			</div>
 		{/each}
 	</div>
@@ -42,7 +35,7 @@
 		</div>
 		<div
 			class="yysbc yynoselect yycc gg-c-button llbtn ggshadow"
-			on:click={() => dispatch('message', { command: 'setCurrentDay' })}
+			on:click={() => dispatch('message', { command: 'setToday' })}
 		>
 			<Fa color="#228" size="1.5x" icon={faCalendarDays} />
 		</div>

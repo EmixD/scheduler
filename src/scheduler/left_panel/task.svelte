@@ -5,7 +5,7 @@
 	import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
 	import { fade } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
-	import { ttGetHoursString, ttGetMinutesString, ttGetDurationString } from '../../ddtt/ttime';
+	import { ttGetDurationString, ttGetTimeString } from '../../ddtt/ttime';
 	export let task;
 
 	const dispatch = createEventDispatcher();
@@ -13,7 +13,7 @@
 </script>
 
 <div
-	class="yys-wbp-hbc ggshadow ll1 {task.tick ? 'gg-c-task2' : 'gg-c-task1'}"
+	class="yys-wbp-hbc ggshadow ll1 {task.completed ? 'gg-c-task2' : 'gg-c-task1'}"
 	on:mouseenter={() => {
 		showui = true;
 	}}
@@ -30,15 +30,12 @@
 		<div class="yysbp ggshadowtext yynoselect ll3">
 			{#if task.ttime !== 0}
 				<nobr>
-					{ttGetHoursString(task.ttime) + ':' + ttGetMinutesString(task.ttime) + ','}
+					{ttGetTimeString(task.ttime) + ','}
 				</nobr>
 			{/if}
 			<nobr>
-				{ttGetDurationString(task.tduration)}
+				{ttGetDurationString(task.tdur)}
 			</nobr>
-			{#if task.onGoing}
-				<div>(ongoing)</div>
-			{/if}
 		</div>
 		<div class="yysbp ggshadowtext yynoselect ll4">
 			{#if showui}
@@ -47,13 +44,13 @@
 					on:click={(e) => {
 						e.preventDefault();
 						e.stopPropagation();
-						task.tick = !task.tick;
-						task.onGoing=false;
+						task.completed = !task.completed;
+						dispatch('message', { command: 'setOngoingTask', id: task.id, ongoing: false });
 						dispatch('message', { command: 'updateTask', task: task });
 					}}
 					out:fade|local={{ duration: 200 }}
 				>
-					<Fa size="1x" icon={task.tick ? faXmark : faCheck} />
+					<Fa size="1x" icon={task.completed ? faXmark : faCheck} />
 				</div>
 				<div
 					class="yysf yycc yynoselect ggshadowtext"

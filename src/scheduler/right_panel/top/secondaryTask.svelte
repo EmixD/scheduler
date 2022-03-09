@@ -5,7 +5,7 @@
 </script>
 
 <div
-	class="yys-wbp-hbc ggshadow ll1 {task.tick ? 'gg-c-task2' : 'gg-c-task1'}"
+	class="yys-wbp-hbc ggshadow ll1 {task.completed ? 'gg-c-task2' : 'gg-c-task1'}"
 	on:click={(e) => {
 		e.preventDefault();
 		e.stopPropagation();

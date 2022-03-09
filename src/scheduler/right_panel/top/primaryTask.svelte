@@ -1,11 +1,13 @@
 <script>
 	export let task;
+	export let taskInfo;
+	export let ongoing;
 	import { ttGetDurationString, ttSlotToTtime, ttGetTimeString } from '../../../ddtt/ttime';
 	import { ddGetFullRelativeDateShort, ddToday } from '../../../ddtt/ddate';
 	import { ttimeToNslots } from '../../logic/logic';
 </script>
 
-<div class="yysbp ggshadow ll1 {task.tick ? 'gg-c-task2' : 'gg-c-task1'}">
+<div class="yysbp ggshadow ll1 {task.completed ? 'gg-c-task2' : 'gg-c-task1'}">
 	<div class="yysbp ggshadowtext yynoselect ll3">
 		<nobr class="yysbp">
 			{#if task.ttime !== 0}
@@ -16,9 +18,9 @@
 				</nobr>
 			{:else}
 				<nobr>
-					{ttGetTimeString(ttSlotToTtime(task.slot))}
+					{ttGetTimeString(ttSlotToTtime(taskInfo.slot))}
 					&ndash;
-					{ttGetTimeString(ttSlotToTtime(task.slot + ttimeToNslots(task.tduration)))}
+					{ttGetTimeString(ttSlotToTtime(taskInfo.slot + ttimeToNslots(task.tduration)))}
 				</nobr>
 				<nobr>
 					({ttGetDurationString(task.tduration)})
@@ -35,8 +37,8 @@
 			<nobr class="yysbc">{task.text}</nobr>
 		</p>
 	</div>
-	{#if task.onGoing}
-		<div>(ongoing)</div>
+	{#if ongoing}
+		<p>ongoing</p>
 	{/if}
 </div>
 

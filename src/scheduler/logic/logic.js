@@ -4,27 +4,33 @@
 import { ttGetHours, ttGetMinutes } from '../../ddtt/ttime';
 
 export function order(tasks) {
+    console.log('order, input=', tasks);
     console.time('order');
+
     let maxslot = ttimeToSlot(225000);
     let slots = Array(maxslot + 1).fill(true); // is free?
 
-    let completeTasks = tasks.filter(t => t.tick);
-    completeTasks.sort((a, b) => a.createdAt > b.createdAt);
-    for (let i in completeTasks) {
-        completeTasks[i].slot = -i;
+    let completedTasks = tasks.filter(t => t.completed);
+    let completedTasksInfo = {};
+    completedTasks.sort((a, b) => a.createdAt > b.createdAt);
+    for (let i in completedTasks) {
+        completedTasksInfo[completedTasks[i].id] = { slot: i - completedTasks.length - 1 };
     }
-    
-    let result = [];
-    let tasksNotDone = tasks.filter(t => !t.tick);
-    let tasksKnown = tasksNotDone.filter(t => t.ttime > 0); // ttime = 0 for undefined
-    let tasksUnKnown = tasksNotDone.filter(t => t.ttime === 0).sort(
+
+    let notCompletedTasksOrdered = [];
+    let notCompletedTasksOrderedInfo = {};
+    let notCompletedTasks = tasks.filter(t => !t.completed);
+    let tasksKnown = notCompletedTasks.filter(t => t.ttime !== 0); // ttime = 0 for undefined
+    let tasksUnKnown = notCompletedTasks.filter(t => t.ttime === 0);
+    tasksUnKnown.sort(
         (a, b) => a.tduration === b.tduration ? a.createdAt < b.createdAt : a.tduration < b.tduration
     ); // undefined start time. Sorted by duration, desc. !Remember that sort sorts in-place!
 
     for (let t of tasksKnown) {
-        t.slot = ttimeToSlot(t.ttime);
-        result = [...result, t];
-        for (let s = t.slot; s < t.slot + ttimeToNslots(t.tduration); s++) {
+        let tslot = ttimeToSlot(t.ttime);
+        notCompletedTasksOrdered = [...notCompletedTasksOrdered, t];
+        notCompletedTasksOrderedInfo[t.id] = { slot: tslot };
+        for (let s = tslot; s < tslot + ttimeToNslots(t.tduration); s++) {
             if (s > maxslot) {
                 console.log("Error: out of slots!");
                 // raise warning etc
@@ -53,8 +59,8 @@ export function order(tasks) {
                 start = ss;
             }
             if (start - ss + 1 === nslots) {
-                t.slot = ss;
-                result = [...result, t];
+                notCompletedTasksOrdered = [...notCompletedTasksOrdered, t];
+                notCompletedTasksOrderedInfo[t.id] = { slot: ss };
                 for (let s = ss; s <= start; s++) {
                     slots[s] = false;
                 }
@@ -62,36 +68,23 @@ export function order(tasks) {
             }
         }
     }
-    result.sort((a, b) => a.slot > b.slot);//!Remember that sort sorts in-place!
+    notCompletedTasksOrdered.sort((a, b) => notCompletedTasksOrderedInfo[a.id].slot > notCompletedTasksOrderedInfo[b.id].slot);//!Remember that sort sorts in-place!
+    let result = {
+        tasks: [...completedTasks, ...notCompletedTasksOrdered],
+        tasksInfo: { ...completedTasksInfo, ...notCompletedTasksOrderedInfo }
+    }
     console.timeEnd('order');
-    return [...completeTasks, ...result];
+    return result;
 }
 
-export function getSuggestedTask(tasks, ttime) {
+export function getSuggestedTask(tasks, tasksInfo, ttime) {
     let slot = ttimeToSlot(ttime);
     for (let t of tasks) {
-        if (t.slot <= slot) {
+        if (tasksInfo[t.id].slot <= slot) {
             return t
         }
         if (t.ttime === 0) {
             return t
-        }
-    }
-    return false;
-}
-
-export function getOngoing(tasks) {
-    for (let t of tasks) {
-        if (t.onGoing) {
-            return t;
-        }
-    }
-    return false;
-}
-export function getSelected(tasks) {
-    for (let t of tasks) {
-        if (t.selected) {
-            return t;
         }
     }
     return false;

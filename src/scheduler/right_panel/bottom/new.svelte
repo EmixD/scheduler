@@ -3,17 +3,17 @@
 	import { toTwoDigits } from '../../../ddtt/ddtt';
 	import { v4 as uuidv4 } from 'uuid';
 	import {
-		ttFromDateObj,
 		ttGetHours,
 		ttGetMinutes,
-		ttGetDurationStringLonger
+		ttGetDurationStringLonger,
+		ttNow
 	} from '../../../ddtt/ttime';
-	export let ddate; // yyyymmdd - number: current selected day
+	export let ddate;
 
 	let taskText = '';
 	const dispatch = createEventDispatcher();
-	let startTimeh = ttGetHours(ttFromDateObj(new Date()));
-	let startTimem = 10 * Math.ceil(ttGetMinutes(ttFromDateObj(new Date())) / 10);
+	let startTimeh = ttGetHours(ttNow());
+	let startTimem = 10 * Math.ceil(ttGetMinutes(ttNow()) / 10);
 	let tDurationh = 0;
 	let tDurationm = 10;
 	let showStartClock = false;
@@ -24,16 +24,15 @@
 		}
 		dispatch('message', {
 			command: 'addTask',
-			new: {
+			task: {
 				text: taskText,
-				tick: false,
+				completed: false,
 				ddate: ddate,
 				ttime: showStartClock ? startTimeh * 10000 + startTimem * 100 : 0,
-				tduration: tDurationh * 10000 + tDurationm * 100,
-				originalId: uuidv4(),
-				createdAt: ttFromDateObj(new Date()),
-				onGoing: false,
-				selected: false
+				tdur: tDurationh * 10000 + tDurationm * 100,
+				id0: uuidv4(),
+				id: '',
+				createdAt: ttNow()
 			}
 		});
 		taskText = '';

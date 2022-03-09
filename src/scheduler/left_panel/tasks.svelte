@@ -6,6 +6,17 @@
 	import { order } from '../logic/logic';
 	export let tasks;
 	export let selectedDateDay;
+
+	function orderAndIndex() {
+		let selectedDayTasks = tasks.filter((task) => task.ddate === selectedDateDay);
+		let ordered = order(selectedDayTasks);
+		// TODO: dispatch tasksInfo as a whole
+		let orderedZip = [];
+		for (let t of ordered.tasks) {
+			orderedZip = [...orderedZip, { task: t, slot: ordered.tasksInfo[t.id].slot }];
+		}
+		return orderedZip;
+	}
 </script>
 
 <div class="yysbp ll1">
@@ -13,12 +24,12 @@
 		<p>{ddGetFullRelativeDate(ddToday(), selectedDateDay)}</p>
 	</div>
 	<div class="yysbp ll3">
-		{#each order(tasks.filter((task) => task.ddate === selectedDateDay)) as task (task.slot)}
+		{#each orderAndIndex() as taskZip (taskZip.slot)}
 			<div animate:flip={{ duration: 200 }} class="yys-wbp-hbc">
-				{#if task.tick}
-					<STTaskS {task} on:message />
+				{#if taskZip.task.completed}
+					<STTaskS task={taskZip.task} on:message />
 				{:else}
-					<STTask {task} on:message />
+					<STTask task={taskZip.task} on:message />
 				{/if}
 			</div>
 		{/each}

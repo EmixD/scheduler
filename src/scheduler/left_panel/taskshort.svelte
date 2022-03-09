@@ -5,7 +5,6 @@
 	import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
 	import { fade } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
-	import { ttGetHoursString, ttGetMinutesString, ttGetDurationString } from '../../ddtt/ttime';
 	export let task;
 
 	const dispatch = createEventDispatcher();
@@ -13,7 +12,7 @@
 </script>
 
 <div
-	class="yys-wbp-hbc ggshadow ll1 {task.tick ? 'gg-c-task2' : 'gg-c-task1'}"
+	class="yys-wbp-hbc ggshadow ll1 {task.completed ? 'gg-c-task2' : 'gg-c-task1'}"
 	on:mouseenter={() => {
 		showui = true;
 	}}
@@ -38,13 +37,13 @@
 				on:click={(e) => {
 					e.preventDefault();
 					e.stopPropagation();
-					task.tick = !task.tick;
-					task.onGoing=false;
+					task.completed = !task.completed;
+					dispatch('message', { command: 'setOngoingTask', id: task.id, ongoing: false });
 					dispatch('message', { command: 'updateTask', task: task });
 				}}
 				out:fade|local={{ duration: 200 }}
 			>
-				<Fa size="1x" icon={task.tick ? faXmark : faCheck} />
+				<Fa size="1x" icon={task.completed ? faXmark : faCheck} />
 			</div>
 			<div
 				class="yysf yycc yynoselect ggshadowtext"
@@ -67,7 +66,7 @@
 		grid-template-columns: 1fr auto;
 		grid-template-rows: auto;
 		padding: 5px 10px;
-		gap:10px;
+		gap: 10px;
 	}
 	.ll2 {
 		font-family: Roboto;

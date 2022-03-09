@@ -5,6 +5,10 @@ export function ttFromDateObj(dateObj){
     return dateObj.getHours()*10000+dateObj.getMinutes()*100+dateObj.getSeconds();
 }
 
+export function ttNow(){
+    return ttFromDateObj(new Date());
+}
+
 export function ttGetSeconds(ttime){
     return ttime%100;
 }

@@ -7,30 +7,41 @@
 	import { faClock } from '@fortawesome/free-solid-svg-icons/faClock';
 	import { ttFromDateObj } from '../../../ddtt/ttime';
 	import { ddToday, ddValidateMath } from '../../../ddtt/ddate';
-	import { order, getSelected, getSuggestedTask, getOngoing } from '../../logic/logic';
+	import { order, getSuggestedTask } from '../../logic/logic';
 	import SOTask from './primaryTask.svelte';
 	import SOTaskC from './secondaryTask.svelte';
-	import { createEventDispatcher, tick } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
+
 	export let tasks;
+	export let selectedTaskId;
+	export let ongoingTaskId;
 	const dispatch = createEventDispatcher();
 
+	$: selectedTask = selectedTaskId
+		? tasks.find((t) => {
+				t.id === selectedTaskId;
+		  })
+		: false;
+	$: ongoingTask = ongoingTaskId
+		? tasks.find((t) => {
+				t.id === ongoingTaskId;
+		  })
+		: false;
 	$: todayTasks = tasks.filter((task) => task.ddate === ddToday());
-	$: selectedTask = getSelected(tasks);
-	$: ongoingTask = getOngoing(todayTasks);
+	// ------
+	$: ordered = order(todayTasks.filter((task) => !task.completed));
 	$: primaryTask =
 		selectedTask ||
 		ongoingTask ||
-		getSuggestedTask(order(todayTasks.filter((task) => !task.tick)), ttFromDateObj(new Date()));
+		getSuggestedTask(ordered.tasks, ordered.tasksInfo, ttFromDateObj(new Date()));
 	$: secondaryTask = getSecondaryTask(todayTasks, ongoingTask);
 
 	function getSecondaryTask(todayTasks, ongoingTask) {
 		if (ongoingTask && primaryTask.id !== ongoingTask.id) {
 			return ongoingTask;
 		}
-		return getSuggestedTask(
-			order(todayTasks.filter((task) => !task.tick && task.id !== primaryTask.id)),
-			ttFromDateObj(new Date())
-		);
+		let ordered = order(todayTasks.filter((task) => !task.completed && task.id !== primaryTask.id));
+		return getSuggestedTask(ordered.tasks, ordered.tasksInfo, ttFromDateObj(new Date()));
 	}
 </script>
 
@@ -41,20 +52,26 @@
 	<div class="yysbp ll3">
 		<div class="yysbp">
 			{#if primaryTask}
-				<SOTask task={primaryTask} on:message />
+				<SOTask
+					task={primaryTask}
+					ongoing={primaryTask.id === ongoingTaskId}
+					taskInfo={ordered.tasksInfo[primaryTask.id]}
+					on:message
+				/>
 			{:else}
 				<div style="height: 103px;" />
 			{/if}
 		</div>
 		<div class="yys-wbp-hbc ll4">
-			{#if primaryTask.ddate === ddToday() && !primaryTask.tick}
+			{#if primaryTask.ddate === ddToday() && !primaryTask.completed}
 				<div
 					class="yysbc yynoselect yycc gg-c-button llbtn ggshadow"
-					on:click={dispatch('message', {
-						command: 'ongoingTask',
-						id: primaryTask.id,
-						onGoing: !primaryTask.onGoing
-					})}
+					on:click={() =>
+						dispatch('message', {
+							command: 'setOngoingTask',
+							id: primaryTask.id,
+							ongoing: primaryTask.id !== ongoingTaskId
+						})}
 				>
 					<Fa size="1x" icon={faClock} />
 				</div>
@@ -62,8 +79,14 @@
 					class="yysbc yynoselect yycc gg-c-button llbtn ggshadow"
 					on:click={() => {
 						let t = primaryTask;
-						t.onGoing = false;
+						dispatch('message', {
+							command: 'setOngoingTask',
+							id: primaryTask.id,
+							ongoing: false
+						});
+
 						t.ddate = ddValidateMath(t.ddate + 1);
+
 						dispatch('message', {
 							command: 'updateTask',
 							task: t
@@ -85,12 +108,16 @@
 				class="yysbc yynoselect yycc gg-c-button llbtn ggshadow"
 				on:click={() => {
 					let t = primaryTask;
-					t.tick = !t.tick;
-					t.onGoing = false;
+					t.completed = !t.completed;
+					dispatch('message', {
+						command: 'setOngoingTask',
+						id: primaryTask.id,
+						ongoing: false
+					});
 					dispatch('message', { command: 'updateTask', task: t });
 				}}
 			>
-				<Fa size="1x" icon={primaryTask.tick ? faXmark : faCheck} />
+				<Fa size="1x" icon={primaryTask.completed ? faXmark : faCheck} />
 			</div>
 			<div
 				class="yysbc yynoselect yycc gg-c-button llbtn ggshadow"

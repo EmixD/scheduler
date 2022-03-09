@@ -31,7 +31,7 @@
 	});
 </script>
 
-<div class="yysbp yycc yynoselect ll1" on:click={() => dispatch('message', { command: 'setCurrentDay' })}>
+<div class="yysbp yycc yynoselect ll1" on:click={() => dispatch('message', { command: 'selectToday' })}>
 	<div class="yys-wbp-hbc yycc">
 		<p class="yysbc ggshadowtext ll2">{ddGetWeekDayString(ddate)}</p>
 	</div>
