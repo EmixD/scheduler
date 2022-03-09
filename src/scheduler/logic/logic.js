@@ -5,7 +5,7 @@ import { ttGetHours, ttGetMinutes } from '../../ddtt/ttime';
 
 export function order(tasks) {
     console.log('order, input=', tasks);
-    console.time('order');
+    // console.time('order');
 
     let maxslot = ttimeToSlot(225000);
     let slots = Array(maxslot + 1).fill(true); // is free?
@@ -17,20 +17,23 @@ export function order(tasks) {
         completedTasksInfo[completedTasks[i].id] = { slot: i - completedTasks.length - 1 };
     }
 
+    console.log('compl',completedTasks.length);
+
     let notCompletedTasksOrdered = [];
     let notCompletedTasksOrderedInfo = {};
     let notCompletedTasks = tasks.filter(t => !t.completed);
     let tasksKnown = notCompletedTasks.filter(t => t.ttime !== 0); // ttime = 0 for undefined
     let tasksUnKnown = notCompletedTasks.filter(t => t.ttime === 0);
     tasksUnKnown.sort(
-        (a, b) => a.tduration === b.tduration ? a.createdAt < b.createdAt : a.tduration < b.tduration
+        (a, b) => a.tdur === b.tdur ? a.createdAt < b.createdAt : a.tdur < b.tdur
     ); // undefined start time. Sorted by duration, desc. !Remember that sort sorts in-place!
 
+    console.log('notcompl',notCompletedTasks.length);
     for (let t of tasksKnown) {
         let tslot = ttimeToSlot(t.ttime);
         notCompletedTasksOrdered = [...notCompletedTasksOrdered, t];
         notCompletedTasksOrderedInfo[t.id] = { slot: tslot };
-        for (let s = tslot; s < tslot + ttimeToNslots(t.tduration); s++) {
+        for (let s = tslot; s < tslot + ttimeToNslots(t.tdur); s++) {
             if (s > maxslot) {
                 console.log("Error: out of slots!");
                 // raise warning etc
@@ -46,7 +49,7 @@ export function order(tasks) {
     }
 
     for (let t of tasksUnKnown) {
-        let nslots = ttimeToNslots(t.tduration);
+        let nslots = ttimeToNslots(t.tdur);
         let streak = false;
         let start;
         for (let ss = maxslot; ss >= 0; ss--) {
@@ -73,7 +76,7 @@ export function order(tasks) {
         tasks: [...completedTasks, ...notCompletedTasksOrdered],
         tasksInfo: { ...completedTasksInfo, ...notCompletedTasksOrderedInfo }
     }
-    console.timeEnd('order');
+    // console.timeEnd('order');
     return result;
 }
 

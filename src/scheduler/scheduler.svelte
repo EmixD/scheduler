@@ -18,6 +18,7 @@
 	
 	db.collection(user.uid).onSnapshot((data) => {
 		tasks = data.docs.map((x) => x.data());
+		console.log('===SNAPSHOT===',tasks);
 	});
 
 	function handleMessage(event) {

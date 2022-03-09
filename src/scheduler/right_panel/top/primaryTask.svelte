@@ -14,16 +14,16 @@
 				<nobr>
 					{ttGetTimeString(task.ttime)}
 					&ndash;
-					{ttGetTimeString(task.ttime + task.tduration)}, ({ttGetDurationString(task.tduration)})
+					{ttGetTimeString(task.ttime + task.tdur)}, ({ttGetDurationString(task.tdur)})
 				</nobr>
 			{:else}
 				<nobr>
 					{ttGetTimeString(ttSlotToTtime(taskInfo.slot))}
 					&ndash;
-					{ttGetTimeString(ttSlotToTtime(taskInfo.slot + ttimeToNslots(task.tduration)))}
+					{ttGetTimeString(ttSlotToTtime(taskInfo.slot + ttimeToNslots(task.tdur)))}
 				</nobr>
 				<nobr>
-					({ttGetDurationString(task.tduration)})
+					({ttGetDurationString(task.tdur)})
 				</nobr>
 			{/if}
 		</nobr>

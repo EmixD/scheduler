@@ -35,7 +35,7 @@
 		</div>
 		<div
 			class="yysbc yynoselect yycc gg-c-button llbtn ggshadow"
-			on:click={() => dispatch('message', { command: 'setToday' })}
+			on:click={() => dispatch('message', { command: 'selectToday' })}
 		>
 			<Fa color="#228" size="1.5x" icon={faCalendarDays} />
 		</div>

@@ -7,14 +7,18 @@
 	export let tasks;
 	export let selectedDateDay;
 
-	function orderAndIndex() {
+	function orderAndIndex(tasks, selectedDateDay) {
+		console.log(selectedDateDay);
 		let selectedDayTasks = tasks.filter((task) => task.ddate === selectedDateDay);
+		console.log(selectedDayTasks);
 		let ordered = order(selectedDayTasks);
+		console.log(ordered);
 		// TODO: dispatch tasksInfo as a whole
 		let orderedZip = [];
 		for (let t of ordered.tasks) {
 			orderedZip = [...orderedZip, { task: t, slot: ordered.tasksInfo[t.id].slot }];
 		}
+		console.log(orderedZip);
 		return orderedZip;
 	}
 </script>
@@ -24,7 +28,7 @@
 		<p>{ddGetFullRelativeDate(ddToday(), selectedDateDay)}</p>
 	</div>
 	<div class="yysbp ll3">
-		{#each orderAndIndex() as taskZip (taskZip.slot)}
+		{#each orderAndIndex(tasks, selectedDateDay) as taskZip (taskZip.slot)}
 			<div animate:flip={{ duration: 200 }} class="yys-wbp-hbc">
 				{#if taskZip.task.completed}
 					<STTaskS task={taskZip.task} on:message />
