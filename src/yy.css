@@ -39,6 +39,8 @@ p{
 .yys-wbp-hbc{ /* Width by parent, height by content */
     width: 100%;
     height: fit-content;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 /* MISC */

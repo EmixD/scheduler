@@ -1,10 +1,10 @@
 // input = unordered array of all tasks for today
 // output = ordered filtered array of tasks
 
-import { ttGetHours, ttGetMinutes } from '../../ddtt/ttime';
+import { ttGetHours, ttGetMinutes, ttNow } from '../../ddtt/ttime';
 
 export function order(tasks) {
-    console.log('order, input=', tasks);
+    // console.log('order, input=', tasks);
     // console.time('order');
 
     let maxslot = ttimeToSlot(225000);
@@ -17,7 +17,7 @@ export function order(tasks) {
         completedTasksInfo[completedTasks[i].id] = { slot: i - completedTasks.length - 1 };
     }
 
-    console.log('compl',completedTasks.length);
+    // console.log('compl', completedTasks.length);
 
     let notCompletedTasksOrdered = [];
     let notCompletedTasksOrderedInfo = {};
@@ -28,7 +28,7 @@ export function order(tasks) {
         (a, b) => a.tdur === b.tdur ? a.createdAt < b.createdAt : a.tdur < b.tdur
     ); // undefined start time. Sorted by duration, desc. !Remember that sort sorts in-place!
 
-    console.log('notcompl',notCompletedTasks.length);
+    // console.log('notcompl', notCompletedTasks.length);
     for (let t of tasksKnown) {
         let tslot = ttimeToSlot(t.ttime);
         notCompletedTasksOrdered = [...notCompletedTasksOrdered, t];
@@ -80,7 +80,8 @@ export function order(tasks) {
     return result;
 }
 
-export function getSuggestedTask(tasks, tasksInfo, ttime) {
+export function getSuggestedTask(tasks, tasksInfo) {
+    let ttime = ttNow();
     let slot = ttimeToSlot(ttime);
     for (let t of tasks) {
         if (tasksInfo[t.id].slot <= slot) {

@@ -69,7 +69,7 @@
 </script>
 
 <div class="yysbp yycc">
-	<div class="yysbc gg-c-2 ll1">
+	<div class="yysbp gg-c-2 ll1">
 		<div class="yys-wbp-hbc ll2">
 			<div class="yysbp yycc gg-c-1">
 				<SNow on:message={handleMessage} />

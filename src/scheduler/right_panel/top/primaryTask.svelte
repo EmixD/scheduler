@@ -1,6 +1,5 @@
 <script>
 	export let task;
-	export let taskInfo;
 	export let ongoing;
 	import { ttGetDurationString, ttSlotToTtime, ttGetTimeString } from '../../../ddtt/ttime';
 	import { ddGetFullRelativeDateShort, ddToday } from '../../../ddtt/ddate';
@@ -8,8 +7,8 @@
 </script>
 
 <div class="yysbp ggshadow ll1 {task.completed ? 'gg-c-task2' : 'gg-c-task1'}">
-	<div class="yysbp ggshadowtext yynoselect ll3">
-		<nobr class="yysbp">
+	<div class="yys-wbp-hbc ggshadowtext yynoselect ll3">
+		<nobr class="yys-wbp-hbc">
 			{#if task.ttime !== 0}
 				<nobr>
 					{ttGetTimeString(task.ttime)}
@@ -17,11 +16,11 @@
 					{ttGetTimeString(task.ttime + task.tdur)}, ({ttGetDurationString(task.tdur)})
 				</nobr>
 			{:else}
-				<nobr>
+				<!-- <nobr>
 					{ttGetTimeString(ttSlotToTtime(taskInfo.slot))}
 					&ndash;
 					{ttGetTimeString(ttSlotToTtime(taskInfo.slot + ttimeToNslots(task.tdur)))}
-				</nobr>
+				</nobr> -->
 				<nobr>
 					({ttGetDurationString(task.tdur)})
 				</nobr>
@@ -32,14 +31,12 @@
 		</nobr>
 	</div>
 
-	<div class="yysbp yycc ll5 ggshadowtext yynoselect">
+	<div class={"yys-wbp-hbc yycc ll5 ggshadowtext yynoselect"+(ongoing?" llog":"")}>
 		<p class="yysbc">
 			<nobr class="yysbc">{task.text}</nobr>
 		</p>
 	</div>
-	{#if ongoing}
-		<p>ongoing</p>
-	{/if}
+
 </div>
 
 <style>
@@ -47,7 +44,8 @@
 		display: flex;
 		flex-direction: column;
 		padding: 10px;
-		gap: 10px;
+		gap: 20px;
+		justify-content: start;
 		/* border-radius: 20px; */
 	}
 
@@ -68,5 +66,8 @@
 		font-weight: normal;
 		font-size: 18px;
 		overflow-x: hidden;
+	}
+	.llog{
+		color: #700;
 	}
 </style>

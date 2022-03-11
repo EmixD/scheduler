@@ -5,7 +5,6 @@
 	import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
 	import { faReply } from '@fortawesome/free-solid-svg-icons/faReply';
 	import { faClock } from '@fortawesome/free-solid-svg-icons/faClock';
-	import { ttFromDateObj } from '../../../ddtt/ttime';
 	import { ddToday, ddValidateMath } from '../../../ddtt/ddate';
 	import { order, getSuggestedTask } from '../../logic/logic';
 	import SOTask from './primaryTask.svelte';
@@ -17,32 +16,44 @@
 	export let ongoingTaskId;
 	const dispatch = createEventDispatcher();
 
-	$: selectedTask = selectedTaskId
-		? tasks.find((t) => {
-				t.id === selectedTaskId;
-		  })
-		: false;
-	$: ongoingTask = ongoingTaskId
-		? tasks.find((t) => {
-				t.id === ongoingTaskId;
-		  })
-		: false;
+	$: selectedTask = selectedTaskId ? tasks.find((t) => t.id === selectedTaskId) : false;
+	$: ongoingTask = ongoingTaskId ? tasks.find((t) => t.id === ongoingTaskId) : false;
 	$: todayTasks = tasks.filter((task) => task.ddate === ddToday());
-	// ------
-	$: ordered = order(todayTasks.filter((task) => !task.completed));
-	$: primaryTask =
-		selectedTask ||
-		ongoingTask ||
-		getSuggestedTask(ordered.tasks, ordered.tasksInfo, ttFromDateObj(new Date()));
-	$: secondaryTask = getSecondaryTask(todayTasks, ongoingTask);
 
-	function getSecondaryTask(todayTasks, ongoingTask) {
-		if (ongoingTask && primaryTask.id !== ongoingTask.id) {
+	function getPrimaryTask(selectedTask, ongoingTask, todayTasks) {
+		if (selectedTask) {
+			return selectedTask;
+		}
+		if (ongoingTask) {
 			return ongoingTask;
 		}
-		let ordered = order(todayTasks.filter((task) => !task.completed && task.id !== primaryTask.id));
-		return getSuggestedTask(ordered.tasks, ordered.tasksInfo, ttFromDateObj(new Date()));
+		let notCompletedTasks = todayTasks.filter((task) => !task.completed);
+		if (notCompletedTasks.length === 0) {
+			return false;
+		}
+		let ordered = order(notCompletedTasks);
+		return getSuggestedTask(ordered.tasks, ordered.tasksInfo);
 	}
+
+	function getSecondaryTask(ongoingTask, todayTasks, primaryTask) {
+		if (!primaryTask) {
+			return false;
+		}
+		if (ongoingTask && ongoingTask.id !== primaryTask.id) {
+			return ongoingTask;
+		}
+		let notCompletedTasks = todayTasks.filter(
+			(task) => !task.completed && task.id !== primaryTask.id
+		);
+		if (notCompletedTasks.length === 0) {
+			return false;
+		}
+		let ordered = order(notCompletedTasks);
+		return getSuggestedTask(ordered.tasks, ordered.tasksInfo);
+	}
+
+	$: primaryTask = getPrimaryTask(selectedTask, ongoingTask, todayTasks);
+	$: secondaryTask = getSecondaryTask(ongoingTask, todayTasks, primaryTask);
 </script>
 
 <div class="yysbp ll1">
@@ -52,12 +63,7 @@
 	<div class="yysbp ll3">
 		<div class="yysbp">
 			{#if primaryTask}
-				<SOTask
-					task={primaryTask}
-					ongoing={primaryTask.id === ongoingTaskId}
-					taskInfo={ordered.tasksInfo[primaryTask.id]}
-					on:message
-				/>
+				<SOTask task={primaryTask} ongoing={primaryTask.id === ongoingTaskId} on:message />
 			{:else}
 				<div style="height: 103px;" />
 			{/if}
@@ -128,7 +134,7 @@
 		</div>
 		<div class="yys-wbp-hbc">
 			{#if secondaryTask}
-				<SOTaskC task={secondaryTask} on:message />
+				<SOTaskC task={secondaryTask} ongoing={secondaryTask.id === ongoingTaskId} on:message />
 			{:else}
 				<div style="height: 36px;" />
 			{/if}
