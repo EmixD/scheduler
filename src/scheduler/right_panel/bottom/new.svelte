@@ -15,7 +15,7 @@
 	let startTimeh = ttGetHours(ttNow());
 	let startTimem = 10 * Math.ceil(ttGetMinutes(ttNow()) / 10);
 	let tDurationh = 0;
-	let tDurationm = 30;
+	let tDurationm = 20;
 	let showStartClock = false;
 
 	function submit() {
