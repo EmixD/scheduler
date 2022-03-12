@@ -2,12 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { toTwoDigits } from '../../../ddtt/ddtt';
 	import { v4 as uuidv4 } from 'uuid';
-	import {
-		ttGetHours,
-		ttGetMinutes,
-		ttGetDurationStringLonger,
-		ttNow
-	} from '../../../ddtt/ttime';
+	import { ttGetHours, ttGetMinutes, ttGetDurationStringLonger, ttNow } from '../../../ddtt/ttime';
 	export let ddate;
 
 	let taskText = '';
@@ -17,6 +12,12 @@
 	let tDurationh = 0;
 	let tDurationm = 20;
 	let showStartClock = false;
+
+	function onKeyInput(e) {
+		if (e.key === 'Enter') {
+			submit();
+		}
+	}
 
 	function submit() {
 		if (taskText.length === 0) {
@@ -39,7 +40,7 @@
 	}
 
 	function wheelStartTimeh(event) {
-		if(!showStartClock){
+		if (!showStartClock) {
 			return;
 		}
 		event.preventDefault();
@@ -53,7 +54,7 @@
 	}
 
 	function wheelStartTimem(event) {
-		if(!showStartClock){
+		if (!showStartClock) {
 			return;
 		}
 		event.preventDefault();
@@ -87,21 +88,12 @@
 	}
 </script>
 
-<div class="yys-wbp-hbc ll1">
-	<div class="yys-wbp-hbc yycc yynoselect ll2">
+<div class="yys-wbp-hbc llcont">
+	<div class="yys-wbp-hbc yycc yynoselect lltitle">
 		<p>Add New Task</p>
 	</div>
-	<div class="yys-wbp-hbc yycc ll3">
-		<input
-			class="ggshadow ll4"
-			bind:value={taskText}
-			maxlength="50"
-			on:keypress={(e) => {
-				if (e.key === 'Enter') {
-					submit();
-				}
-			}}
-		/>
+	<div class="yys-wbp-hbc yycc llinnercont">
+		<input class="ggshadow llinput" bind:value={taskText} maxlength="50" on:keypress={onKeyInput} />
 		<div class="yys-wbp-hbc yycc ll5">
 			<div
 				class="yysbc yycc ggshadowtext ll6"
@@ -122,17 +114,16 @@
 				{ttGetDurationStringLonger(tDurationh * 10000 + tDurationm * 100)}
 			</div>
 		</div>
-
 	</div>
 </div>
 
 <style>
-	.ll1 {
+	.llcont {
 		display: grid;
 		grid-template-columns: 1fr;
 		grid-template-rows: auto 1fr;
 	}
-	.ll2 {
+	.lltitle {
 		background-color: #0d1c9d;
 		color: white;
 		font-family: Roboto;
@@ -140,7 +131,7 @@
 		font-weight: normal;
 		font-size: 24px;
 	}
-	.ll3{
+	.llinnercont {
 		display: grid;
 		grid-template-columns: 1fr;
 		grid-template-rows: auto 1fr;
@@ -148,7 +139,7 @@
 		padding-top: 15px;
 		gap: 10px;
 	}
-	.ll4{
+	.llinput {
 		background-color: #e0e2f7;
 		border: solid;
 		border-color: #aaf;
@@ -156,17 +147,17 @@
 		padding: 3px;
 		font-size: 18px;
 	}
-	.ll4:focus{
+	.llinput:focus {
 		outline: none;
 	}
-	.ll5{
+	.ll5 {
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
 		grid-template-rows: 1fr;
 		justify-items: center;
 		align-items: end;
 	}
-	.ll6{
+	.ll6 {
 		font-size: 1.8rem;
 	}
 	.llbtn {
@@ -175,5 +166,5 @@
 		color: #228;
 		font-size: 1.2rem;
 		font-weight: bold;
-	} 
+	}
 </style>
